@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
     }

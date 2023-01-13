@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('remidials', function (Blueprint $table) {
+        Schema::create('remedial_photos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('remedial_id')->references('id')->on('remedials')->onDelete('cascade');
+            $table->string('name');
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('remidials');
+        Schema::dropIfExists('remidial_photos');
     }
 };

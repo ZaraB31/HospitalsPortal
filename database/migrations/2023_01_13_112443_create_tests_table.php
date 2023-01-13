@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('board_id')->references('id')->on('boards')->onDelete('cascade');
+            $table->string('name');
+            $table->string('file');
+            $table->integer('circuits');
+            $table->string('result');
             $table->timestamps();
         });
     }

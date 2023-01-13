@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('remidial_photos', function (Blueprint $table) {
+        Schema::create('remedials', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('board_id')->references('id')->on('boards')->onDelete('cascade');
+            $table->string('circuitNo');
+            $table->string('room');
+            $table->longText('description');
+            $table->boolean('approved');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('remidial_photos');
+        Schema::dropIfExists('remidials');
     }
 };
