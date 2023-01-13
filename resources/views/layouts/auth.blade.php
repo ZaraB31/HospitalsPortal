@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/dist/app.css">
+    <link rel="stylesheet" href="/dist/auth.css">
     <script src="https://kit.fontawesome.com/7d0f299f51.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,6 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    <header>
-
-    </header>
-
     <main>
         @yield('content')
     </main>   

@@ -1,0 +1,44 @@
+@import 'variables';
+
+body {
+    background-color: #F0F1F2;
+    margin: 0;
+}
+main {
+    width: 40vw;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100vh;
+    form{
+        margin-top: 40px;
+        width: 100%;
+        label, input {
+            width: 100%;
+        }
+        input {
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+        input[type=checkbox] {
+            width: auto;
+            width: 15px;
+            height: 15px;
+        }
+        input[type=submit] {
+            width: 40%;
+            margin-left: 60%;
+            background-color: $blue;
+            border: none;
+            color: white;
+            padding: 8px 0;
+        }
+        input[type=submit]:hover {
+            text-decoration: underline;
+            background-color: $blueHover;
+            cursor: pointer;
+            
+        }
+    }
+}
