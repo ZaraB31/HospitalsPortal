@@ -20,6 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'type_id',
+        'company_id',
         'password',
     ];
 
@@ -41,4 +44,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function company() {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function userJob() {
+        return $this->belongsTo(UserJob::class);
+    }
+
+    public function userType() {
+        return $this->belongsTo(UserType::class);
+    }
 }

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Board extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'location_id', 'name',
+    ];
+
+    public function location() {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function test() {
+        return $this->belongsTo(Test::class);
+    }
 }

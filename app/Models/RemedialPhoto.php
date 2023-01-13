@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class RemedialPhoto extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'test_id', 'invoiceNo', 'sentDate', 'paid',
+        'remedial_id', 'name', 'file',
     ];
 
-    public function Test() {
-        return $this->belongsTo(Test::class);
+    public function remedial() {
+        return $this->belongsTo(Remedial::class);
     }
 }

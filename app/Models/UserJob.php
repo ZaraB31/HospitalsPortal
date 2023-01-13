@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class UserJob extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'job_id', 'user_id',
+    ];
+
+    public function job() {
+        return $this->belongsTo(Job::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

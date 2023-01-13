@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Test extends Model
+class Remedial extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'board_id', 'name', 'file', 'circuits', 'result',
+        'board_id', 'circuitNo', 'room', 'description', 'approved',
     ];
 
-    public function invoice() {
-        return $this->belongsTo(Invoice::class);
+    public function remedialPhoto() {
+        return $this->hasMany(RemedialPhoto::class);
     }
 
     public function board() {
