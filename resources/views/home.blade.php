@@ -22,8 +22,8 @@
     @foreach($hospitals as $hospital)
     <div>
         <h2>{{$hospital->name}}</h2>
-        <button>Main</button>
-        <button>Community</button>
+        <button><a href="/Hospitals/{{$hospital->id}}/Main">Main</a></button>
+        <button><a href="/Hospitals/{{$hospital->id}}/Community">Community</a></button>
     </div>
     @endforeach
 </section>
