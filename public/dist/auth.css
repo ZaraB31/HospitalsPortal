@@ -1,10 +1,40 @@
-h1, h2, h3 {
-  font-family: "Roboto Condensed", sans-serif;
+body {
+  background-color: #F0F1F2;
+  margin: 0;
 }
 
-p, a, button, label, input, textarea, li {
+h1, h2, h3 {
+  font-family: "Roboto Condensed", sans-serif;
+  margin: 10px 0;
+}
+
+p, a, button, label, input, textarea, li, select {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
+}
+
+li {
+  list-style-type: none;
+}
+
+form input {
+  width: 99%;
+  margin-bottom: 10px;
+  border: none;
+}
+
+form input[type=submit] {
+  width: 40%;
+  background-color: #1D70C0;
+  border: none;
+  padding: 8px 0;
+  margin-left: 60%;
+  color: white;
+}
+
+form input[type=submit]:hover {
+  cursor: pointer;
+  background-color: #308AE0;
 }
 
 .error {
@@ -14,9 +44,22 @@ p, a, button, label, input, textarea, li {
   margin-bottom: 20px;
 }
 
-body {
-  background-color: #F0F1F2;
-  margin: 0;
+.messageSent {
+  background-color: #1FC01D;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+.messageSent ul {
+  padding: 0;
+}
+.messageSent ul li {
+  padding: 10px;
+}
+
+button:hover, a:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 main {
@@ -31,9 +74,6 @@ main form {
   margin-top: 40px;
   width: 100%;
 }
-main form label, main form input {
-  width: 100%;
-}
 main form input {
   margin-bottom: 10px;
   padding-left: 4px;
@@ -43,16 +83,15 @@ main form input[type=checkbox] {
   width: 15px;
   height: 15px;
 }
-main form input[type=submit] {
-  width: 40%;
-  margin-left: 60%;
-  background-color: #1D70C0;
-  border: none;
-  color: white;
-  padding: 8px 0;
-}
 main form input[type=submit]:hover {
   text-decoration: underline;
   background-color: #308AE0;
   cursor: pointer;
+}
+main form select {
+  width: 100%;
+  margin-bottom: 10px;
+}
+main form select option {
+  padding-left: 4px;
 }

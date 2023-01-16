@@ -1,2 +1,88 @@
 // Variables
 @import 'variables';
+
+header {
+    background-color: $blue;
+    nav {
+        width: 70%;
+        margin-left: 15%;
+        display: flex;
+        justify-content: end;
+        ul {
+            display: inline-flex;
+            width: 70%;
+            justify-content: space-between;
+            a {
+                color: white;
+                text-decoration: none;
+                margin: 8px 0;
+            }
+        }
+    }
+}
+
+main {
+    width: 70%;
+    margin: auto;
+    section {
+        margin: 30px 0;
+    }
+    .createButton {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        button {
+            background-color: $blue;
+            border: none;
+            color: white;
+            padding: 8px 14px;
+        }
+    }
+    .hospitalsDisplay {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        div {
+            width: 275px;
+            text-align: center;
+            background-color: $grey;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 1.5% 1%;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            h2 {
+                width: 100%;
+            }
+            button {
+                width: 40%;
+                background-color: $blue;
+                border: none;
+                color: white;
+                padding: 6px 0;
+            }
+        }
+    }
+    .hiddenForm {
+        background-color: $grey;
+        position: fixed;
+        left: 25%;
+        top: 20%;
+        width: 50%;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        i {
+            font-size: 20px;
+        }
+        i:hover {
+            cursor: pointer;
+        }
+        form {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+}

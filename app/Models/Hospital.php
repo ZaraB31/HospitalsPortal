@@ -10,7 +10,7 @@ class Hospital extends Model
     use HasFactory;
 
     protected $fillable = [
-        'hospital',
+        'name',
     ];
 
     public function Location() {

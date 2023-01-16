@@ -1,9 +1,5 @@
 @import 'variables';
 
-body {
-    background-color: #F0F1F2;
-    margin: 0;
-}
 main {
     width: 40vw;
     margin: auto;
@@ -14,9 +10,6 @@ main {
     form{
         margin-top: 40px;
         width: 100%;
-        label, input {
-            width: 100%;
-        }
         input {
             margin-bottom: 10px;
             padding-left: 4px;
@@ -26,19 +19,17 @@ main {
             width: 15px;
             height: 15px;
         }
-        input[type=submit] {
-            width: 40%;
-            margin-left: 60%;
-            background-color: $blue;
-            border: none;
-            color: white;
-            padding: 8px 0;
-        }
         input[type=submit]:hover {
             text-decoration: underline;
             background-color: $blueHover;
             cursor: pointer;
-            
+        }
+        select {
+            width: 100%;
+            margin-bottom: 10px;
+            option {
+                padding-left: 4px;
+            }
         }
     }
 }

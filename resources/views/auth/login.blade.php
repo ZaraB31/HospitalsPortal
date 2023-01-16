@@ -4,12 +4,11 @@
 
 @section('content')
 
-
 <form method="POST" action="{{ route('login') }}">
     @include('includes.error')
 
     <label for="email">Email Address</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    <input id="email" type="email" name="email" required autocomplete="email" autofocus>
 
     <label for="password">Password</label>
     <input id="password" type="password" name="password" required autocomplete="current-password">

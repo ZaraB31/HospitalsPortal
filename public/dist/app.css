@@ -1,10 +1,40 @@
-h1, h2, h3 {
-  font-family: "Roboto Condensed", sans-serif;
+body {
+  background-color: #F0F1F2;
+  margin: 0;
 }
 
-p, a, button, label, input, textarea, li {
+h1, h2, h3 {
+  font-family: "Roboto Condensed", sans-serif;
+  margin: 10px 0;
+}
+
+p, a, button, label, input, textarea, li, select {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
+}
+
+li {
+  list-style-type: none;
+}
+
+form input {
+  width: 99%;
+  margin-bottom: 10px;
+  border: none;
+}
+
+form input[type=submit] {
+  width: 40%;
+  background-color: #1D70C0;
+  border: none;
+  padding: 8px 0;
+  margin-left: 60%;
+  color: white;
+}
+
+form input[type=submit]:hover {
+  cursor: pointer;
+  background-color: #308AE0;
 }
 
 .error {
@@ -12,4 +42,108 @@ p, a, button, label, input, textarea, li {
   color: white;
   padding: 6px;
   margin-bottom: 20px;
+}
+
+.messageSent {
+  background-color: #1FC01D;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+.messageSent ul {
+  padding: 0;
+}
+.messageSent ul li {
+  padding: 10px;
+}
+
+button:hover, a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+header {
+  background-color: #1D70C0;
+}
+header nav {
+  width: 70%;
+  margin-left: 15%;
+  display: flex;
+  justify-content: end;
+}
+header nav ul {
+  display: inline-flex;
+  width: 70%;
+  justify-content: space-between;
+}
+header nav ul a {
+  color: white;
+  text-decoration: none;
+  margin: 8px 0;
+}
+
+main {
+  width: 70%;
+  margin: auto;
+}
+main section {
+  margin: 30px 0;
+}
+main .createButton {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+main .createButton button {
+  background-color: #1D70C0;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+}
+main .hospitalsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+main .hospitalsDisplay div {
+  width: 275px;
+  text-align: center;
+  background-color: #ACB2BA;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5% 1%;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+main .hospitalsDisplay div h2 {
+  width: 100%;
+}
+main .hospitalsDisplay div button {
+  width: 40%;
+  background-color: #1D70C0;
+  border: none;
+  color: white;
+  padding: 6px 0;
+}
+main .hiddenForm {
+  background-color: #ACB2BA;
+  position: fixed;
+  left: 25%;
+  top: 20%;
+  width: 50%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main .hiddenForm i {
+  font-size: 20px;
+}
+main .hiddenForm i:hover {
+  cursor: pointer;
+}
+main .hiddenForm form {
+  width: 100%;
+  margin-top: 10px;
 }
