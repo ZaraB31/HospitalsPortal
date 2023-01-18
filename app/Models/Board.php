@@ -18,6 +18,6 @@ class Board extends Model
     }
 
     public function test() {
-        return $this->belongsTo(Test::class);
+        return $this->hasOne(Test::class);
     }
 }

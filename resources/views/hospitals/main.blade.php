@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Main')
 
 @section('content')
 
 @if($user->type_id === 1)
     <section class="createButton">
-        <button onClick="openForm('newLocationForm')">Add New Location</button>
+        <button onClick="openForm('newLocationForm', '{{$hospital->id}}')">Add New Location</button>
     </section>
 @endif
 
@@ -26,32 +26,35 @@
         @foreach($locations as $location)
         <tr>
             <th>{{$location->name}}</th>
-            <th style="text-align:right;">
-                @if($user->type_id === 1)
-                <button onClick="openTable('{{$location->id}}-tableForm')">Add DB</button>
+            <th colspan="2" style="text-align:right;">
+                @if($user->type_id === 1 OR $user->type_id === 2)
+                <button onClick="openForm('newBoardForm', '{{$location->id}}')">Add DB</button>
                 @endif
             </th>
         </tr>
-        <tr id="{{$location->id}}-tableForm" style="display:none;">
+
+        @foreach($locationBoards as $board)
+        @if($board->location_id === $location->id)
+        <tr>
+            <td>{{$board->name}}</td>
+            @if($board->test === null)
             <td colspan="2">
-                <form action="{{ route('storeBoard') }}" method="post">
-                    @include('includes.error')
-                    <input type="text" name="location_id" id="location_id" value="{{$location->id}}" style="display:none;">
-
-                    <label for="name">Board Name:</label>
-                    <input type="text" name="name" id="name">
-
-                    <input type="submit" value="Save">
-                </form>
+                No Test Uploaded
+                <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
             </td>
-        </tr>
-            @foreach($locationBoards as $board)
-            @if($board->location_id === $location->id)
-            <tr>
-                <td>{{$board->name}}</td>
-            </tr>
+            @else
+                @if($board->test->result === "Satisfactory")
+                    <td style="background-color: #1FC01D;">Circuits: {{$board->test->circuits}}</td>
+                    <td style="background-color: #1FC01D;">{{$board->test->result}}</td>
+                @elseif($board->test->result === "Unsatisfactory")
+                    <td style="background-color: #C01D1F;">Circuits: {{$board->test->circuits}}</td>
+                    <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
+                @endif
             @endif
-            @endforeach
+        </tr>
+        @endif
+        @endforeach
+
         @endforeach
 
         @else
@@ -69,12 +72,56 @@
     <form action="{{ route('storeLocation') }}" method="post">
         @include('includes.error')
 
-        <input type="number" name="hospital_id" id="hospital_id" value="{{$hospital->id}}" style="display:none;">
+        <input type="number" name="hospital_id" id="hospital_id" class="foreign_id" style="display:none;">
 
         <label for="name">Location Name:</label>
         <input type="text" name="name" id="name">
 
         <input type="text" name="type" id="type" value="main" style="display:none;">
+
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+<div class="hiddenForm" id="newBoardForm" style="display:none;">
+    <h2>Add New Board</h2>
+    <i onClick="closeForm('newBoardForm')" class="fa-regular fa-circle-xmark"></i>
+
+    <form action="{{ route('storeBoard') }}" method="post">
+        @include('includes.error')
+        <input type="text" name="location_id" id="location_id" class="foreign_id"  style="display:none;">
+
+        <label for="name">Board Name:</label>
+        <input type="text" name="name" id="name">
+
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+<div class="hiddenForm" id="newTestForm" style="display:none;">
+    <h2>Upload Test</h2>
+    <i onClick="closeForm('newTestForm')" class="fa-regular fa-circle-xmark"></i>
+
+    <form action="{{ route('storeTest') }}" method="post" enctype="multipart/form-data">
+        @include('includes.error')
+
+        <input type="text" name="board_id" id="board_id" class="foreign_id" style="display:none;">
+        
+        <label for="name">File Name:</label>
+        <input type="text" name="name" id="name">
+
+        <label for="file">File Upload:</label>
+        <input type="file" name="file" id="file">
+
+        <label for="circuits">Number of Circuits:</label>
+        <input type="number" name="circuits" id="circuits">
+
+        <label for="result">Result:</label>
+        <select name="result" id="result">
+            <option value="">Select...</option>
+            <option value="Satisfactory">Satisfactory</option>
+            <option value="Unsatisfactory">Unsatisfactory</option>
+        </select>
 
         <input type="submit" value="Save">
     </form>

@@ -23,3 +23,5 @@ Route::get('/Hospitals/{id}/Community', [App\Http\Controllers\HospitalController
 Route::post('Hospitals/Main/CreateLocation', [App\Http\Controllers\LocationController::class, 'store'])->name('storeLocation');
 
 Route::post('Hospitals/Main/CreateBoard', [App\Http\Controllers\BoardController::class, 'store'])->name('storeBoard');
+
+Route::post('Hospitals/Main/UploadTest', [App\Http\Controllers\TestController::class, 'store'])->name('storeTest');
