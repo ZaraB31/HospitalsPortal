@@ -16,6 +16,10 @@
     </div>
 @endif
 
+<section>
+    <h1>Hello {{$user->name}}</h1>
+</section>
+
 <section class="hospitalsDisplay">
     @foreach($hospitals as $hospital)
     <div>

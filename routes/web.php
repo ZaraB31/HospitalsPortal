@@ -27,3 +27,8 @@ Route::get('/Hospitals/Boards/{id}', [App\Http\Controllers\BoardController::clas
 
 Route::post('/Hospitals/UploadTest', [App\Http\Controllers\TestController::class, 'store'])->name('storeTest');
 Route::get('/Hospitals/DownloadTest/{id}', [App\Http\Controllers\DownloadController::class, 'downloadTest'])->name('downloadTest');
+
+Route::get('/Hospitals/Admin', [App\Http\Controllers\AdminController::class, 'index'])->name('showAdmin');
+
+Route::get('/Hospitals/Admin/Invoices', [App\Http\Controllers\InvoiceController::class, 'index'])->name('showInvoice');
+Route::post('/Hospitals/Admin/Invoices', [App\Http\Controllers\InvoiceController::class, 'store'])->name('storeInvoice');

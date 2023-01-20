@@ -12,8 +12,10 @@
     @endif
 </section>
 
-<h1>{{$board->name}}</h1>
-<p>{{$board->location->name}} - {{$board->location->hospital->name}}</p>
+<section>
+    <h1>{{$board->name}}</h1>
+    <p>{{$board->location->name}} - {{$board->location->hospital->name}}</p>
+</section>
 
 <section class="splitSection">
     <article class="halfSection">

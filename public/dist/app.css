@@ -26,6 +26,16 @@ li {
   list-style-type: none;
 }
 
+button {
+  background-color: #1D70C0;
+  border: none;
+  padding: 6px 12px;
+}
+button a {
+  color: white;
+  text-decoration: none;
+}
+
 form input {
   width: 99%;
   margin-bottom: 10px;
@@ -50,6 +60,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   text-align: left;
+  margin-bottom: 10px;
 }
 
 th {
@@ -65,6 +76,10 @@ th button {
   padding: 4px 8px;
   font-size: 16px;
   color: #1D70C0;
+}
+th button a {
+  color: #1D70C0;
+  text-decoration: none;
 }
 
 tr {

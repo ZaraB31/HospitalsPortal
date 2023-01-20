@@ -20,7 +20,10 @@
     </div>
 @endif
 
-<h1>{{$hospital->name}} - Main</h1>
+<section>
+    <h1>{{$hospital->name}} - Main</h1>
+</section>
+
 
 <section>
     <table>

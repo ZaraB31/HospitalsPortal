@@ -20,7 +20,9 @@
     </div>
 @endif
 
-<h1>{{$hospital->name}} - Community</h1>
+<section>
+    <h1>{{$hospital->name}} - Community</h1>
+</section>
 
 <section>
     <table>
