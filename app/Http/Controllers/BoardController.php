@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Board;
+use App\Models\Download;
+use App\Models\Test;
 
 class BoardController extends Controller
 {
@@ -26,5 +28,18 @@ class BoardController extends Controller
         if($type === 'community') {
             return redirect()->route('viewHospitalCommunity', $hospitalID)->with('success', 'Board Created!');
         }
+    }
+
+    public function show($id) {
+        $board = Board::findOrFail($id);
+        $tests = Test::where('board_id', $id)->get();
+
+        foreach ($tests as $test) {
+            $downloads = Download::where('test_id', $test['id'])->get();
+        }
+        
+        
+        return view('hospitals/board', ['board' => $board,
+                                        'downloads' => $downloads]);
     }
 }

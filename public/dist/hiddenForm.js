@@ -1,9 +1,16 @@
 function openForm(id, foreign_id) {
   var x = document.getElementById(id);
-  var id = x.querySelector('.foreign_id');
-  id.value = foreign_id;
-  console.log(id);
-  x.style.display = "flex";
+  var y = foreign_id;
+  console.log(foreign_id);
+  if(y == 0) {
+    x.style.display = "flex";
+  } 
+  if(y != 0) {
+    var idInput = x.querySelector('.foreign_id');
+    idInput.value = y;
+    x.style.display = "flex";
+  }
+  
 }
 
 function closeForm(id) {

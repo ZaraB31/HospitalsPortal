@@ -5,9 +5,7 @@
 @section('content')
 
 @if($user->type_id === 1)
-    <section class="createButton">
-        <button onClick="openForm('newHospitalForm')">Add New</button>
-    </section>
+    <button class="createButton" onClick="openForm('newHospitalForm', '0')"><i class="fa-solid fa-plus"></i></button>
 @endif
 
 @if (\Session::has('success'))

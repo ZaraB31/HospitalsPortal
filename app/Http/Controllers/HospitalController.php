@@ -53,9 +53,24 @@ class HospitalController extends Controller
                                        'locationBoards' => $locationBoards]);
     }
 
-    public function community() {
+    public function community($id) {
         $hospital = Hospital::findOrFail($id);
         $user = Auth()->user();
-        return view('hospitals/community', ['hospital' => $hospital, 'user' => $user]);
+        $locations = Location::all()->where('hospital_id', $id)->where('type', 'community');
+        $boards = Board::all();
+        $locationBoards = [];
+        
+        foreach($locations as $location) {
+            foreach($boards as $board) {
+                if($board['location_id'] === $location['id']) {
+                    $locationBoards[] = $board;
+                }
+            }
+        }
+
+        return view('hospitals/community', ['hospital' => $hospital, 
+                                       'user' => $user,
+                                       'locations' => $locations,
+                                       'locationBoards' => $locationBoards]);
     }
 }

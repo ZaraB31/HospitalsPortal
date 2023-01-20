@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Main')
+@section('title', 'Community')
 
 @section('content')
 
@@ -20,7 +20,7 @@
     </div>
 @endif
 
-<h1>{{$hospital->name}} - Main</h1>
+<h1>{{$hospital->name}} - Community</h1>
 
 <section>
     <table>
@@ -38,7 +38,7 @@
                 @foreach($locationBoards as $board)
                     @if($board->location_id === $location->id)
                     <tr>
-                        <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
+                        <td><a href="">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
                         @if($board->test === null)
                         <td colspan="2">
                             No Test Uploaded
@@ -68,7 +68,7 @@
 </section>
 
 <div class="hiddenForm" id="newLocationForm" style="display:none;">
-    <h2>{{$hospital->name}} - Add New Main Location</h2>
+    <h2>{{$hospital->name}} - Add New Community Location</h2>
     <i onClick="closeForm('newLocationForm')" class="fa-regular fa-circle-xmark"></i>
 
     <form action="{{ route('storeLocation') }}" method="post">
@@ -79,7 +79,7 @@
         <label for="name">Location Name:</label>
         <input type="text" name="name" id="name">
 
-        <input type="text" name="type" id="type" value="main" style="display:none;">
+        <input type="text" name="type" id="type" value="community" style="display:none;">
 
         <input type="submit" value="Save">
     </form>

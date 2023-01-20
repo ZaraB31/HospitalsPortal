@@ -20,8 +20,10 @@ Route::post('/Hospitals/Create', [App\Http\Controllers\HospitalController::class
 Route::get('/Hospitals/{id}/Main', [App\Http\Controllers\HospitalController::class, 'main'])->name('viewHospitalMain');
 Route::get('/Hospitals/{id}/Community', [App\Http\Controllers\HospitalController::class, 'community'])->name('viewHospitalCommunity');
 
-Route::post('Hospitals/Main/CreateLocation', [App\Http\Controllers\LocationController::class, 'store'])->name('storeLocation');
+Route::post('/Hospitals/CreateLocation', [App\Http\Controllers\LocationController::class, 'store'])->name('storeLocation');
 
-Route::post('Hospitals/Main/CreateBoard', [App\Http\Controllers\BoardController::class, 'store'])->name('storeBoard');
+Route::post('/Hospitals/CreateBoard', [App\Http\Controllers\BoardController::class, 'store'])->name('storeBoard');
+Route::get('/Hospitals/Boards/{id}', [App\Http\Controllers\BoardController::class, 'show'])->name('showBoard');
 
-Route::post('Hospitals/Main/UploadTest', [App\Http\Controllers\TestController::class, 'store'])->name('storeTest');
+Route::post('/Hospitals/UploadTest', [App\Http\Controllers\TestController::class, 'store'])->name('storeTest');
+Route::get('/Hospitals/DownloadTest/{id}', [App\Http\Controllers\DownloadController::class, 'downloadTest'])->name('downloadTest');

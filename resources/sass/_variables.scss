@@ -11,7 +11,6 @@ body {
     background-color: #F0F1F2;
     margin: 0;
 }
-
 h1, h2, h3 {
     font-family: 'Roboto Condensed', sans-serif;
     margin: 10px 0;
@@ -19,6 +18,13 @@ h1, h2, h3 {
 p, a, button, label, input, textarea, li, select, td, th {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
+}
+i {
+    margin-left: 10px;
+}
+a {
+    text-decoration: none;
+    color: black;
 }
 li {
     list-style-type: none;
@@ -64,6 +70,10 @@ tr {
     border-top: 1px solid $blue;
     td {
         padding: 10px;
+        a {
+            color: black;
+            text-decoration: none;
+        }
         button {
             float: right;
             background-color: $blue;

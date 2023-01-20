@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function userType() {
         return $this->belongsTo(UserType::class);
     }
+
+    public function download() {
+        return $this->belongTo(Download::class);
+    }
 }

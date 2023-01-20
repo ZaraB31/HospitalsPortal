@@ -20,4 +20,8 @@ class Test extends Model
     public function board() {
         return $this->belongsTo(Board::class);
     }
+    
+    public function download() {
+        return $this->belongTo(Download::class);
+    }
 }

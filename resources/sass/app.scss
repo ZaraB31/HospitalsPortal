@@ -28,14 +28,18 @@ main {
         margin: 30px 0;
     }
     .createButton {
-        display: flex;
-        justify-content: end;
-        width: 100%;
-        button {
-            background-color: $blue;
-            border: none;
-            color: white;
-            padding: 8px 14px;
+        background-color: $blue;
+        border: none;
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        i {
+            margin: 0;
+            font-size: 25px;
         }
     }
     .hospitalsDisplay {
@@ -87,5 +91,17 @@ main {
             width: 100%;
             margin-top: 10px;
         }
+    }
+    .splitSection {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .halfSection {
+            width: 48%;
+        }
+    }
+    
+    .testDetails {
+        background-color: $grey;
     }
 }
