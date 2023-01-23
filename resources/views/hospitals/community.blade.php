@@ -30,7 +30,7 @@
             @foreach($locations as $location)
             <tr>
                 <th>{{$location->name}}</th>
-                <th colspan="2" style="text-align:right;">
+                <th colspan="3" style="text-align:right;">
                     @if($user->type_id === 1 OR $user->type_id === 2)
                     <button onClick="openForm('newBoardForm', '{{$location->id}}')">Add DB</button>
                     @endif
@@ -40,9 +40,9 @@
                 @foreach($locationBoards as $board)
                     @if($board->location_id === $location->id)
                     <tr>
-                        <td><a href="">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
+                        <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
                         @if($board->test === null)
-                        <td colspan="2">
+                        <td colspan="3">
                             No Test Uploaded
                             @if($user->type_id === 1 OR $user->type_id === 2)
                                 <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
@@ -51,10 +51,11 @@
                         @else
                             @if($board->test->result === "Satisfactory")
                                 <td style="background-color: #1FC01D;">Circuits: {{$board->test->circuits}}</td>
-                                <td style="background-color: #1FC01D;">{{$board->test->result}}</td>
+                                <td colspan="2" style="background-color: #1FC01D;">{{$board->test->result}}</td>
                             @elseif($board->test->result === "Unsatisfactory")
-                                <td style="background-color: #C01D1F;">Circuits: {{$board->test->circuits}}</td>
+                                <td style="background-color: #C01D1F; color:white;">Circuits: {{$board->test->circuits}}</td>
                                 <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
+                                <td style="background-color: #C01D1F;"><button>Add Remedial</button></td>
                             @endif
                         @endif
                     </tr>

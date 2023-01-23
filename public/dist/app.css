@@ -36,6 +36,10 @@ button a {
   text-decoration: none;
 }
 
+section h1 {
+  font-size: 2em;
+}
+
 form input {
   width: 99%;
   margin-bottom: 10px;
@@ -156,11 +160,17 @@ header nav ul {
   display: inline-flex;
   width: 70%;
   justify-content: space-between;
+  align-items: center;
 }
-header nav ul a {
-  color: white;
+header nav ul li {
   text-decoration: none;
   margin: 8px 0;
+}
+header nav ul li a {
+  color: white;
+}
+header nav ul li form button {
+  color: white;
 }
 
 main {
@@ -224,6 +234,7 @@ main .hiddenForm {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 main .hiddenForm i {
   font-size: 20px;
@@ -245,4 +256,19 @@ main .splitSection .halfSection {
 }
 main .testDetails {
   background-color: #ACB2BA;
+}
+main form input {
+  border: 2px solid #1D70C0;
+}
+main select {
+  width: 60%;
+  margin-right: 40%;
+  margin-bottom: 10px;
+  border: 2px solid #1D70C0;
+}
+main table.invoices tr:nth-child(even) {
+  background-color: #ACB2BA;
+}
+main .invoices tr {
+  border: none;
 }

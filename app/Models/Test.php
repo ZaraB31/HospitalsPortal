@@ -14,7 +14,7 @@ class Test extends Model
     ];
 
     public function invoice() {
-        return $this->belongsTo(Invoice::class);
+        return $this->hasOne(Invoice::class);
     }
 
     public function board() {

@@ -1,8 +1,11 @@
 <nav>
     <ul>
-        <a href="/Hospitals"><li>Hospitals</li></a>
-        <a href=""><li>Calendar</li></a>
-        <a href="/Hospitals/Admin"><li>Admin</li></a>
-        <a href=""><li>Log Out</li></a>
+        <li><a href="/Hospitals">Hospitals</a></li>
+        <li><a href="">Calendar</a></li>
+        <li><a href="/Hospitals/Admin">Admin</a></li>
+        <li><form action="{{ route('logout') }}" method="post">
+            @csrf
+            <button type="submit">Logout</button>
+        </form></li>
     </ul>
 </nav>

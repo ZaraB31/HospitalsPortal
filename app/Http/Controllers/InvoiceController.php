@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Hospital;
-use App\Models\Location;
 use App\Models\Test;
 use App\Models\Invoice;
 use Auth;
@@ -18,15 +16,23 @@ class InvoiceController extends Controller
 
     public function index() {
         $user = Auth()->user();
-        $hospitals = Hospital::all()->sortBy('name');
-        $locations = Location::all()->sortBy('name');
-        $tests = Test::all();
-        $invoices = Invoice::all();
+        $tests = Test::all()->sortByDesc('created_at');
 
         return view('invoices', ['user' => $user,
-                                 'hospitals' => $hospitals,
-                                 'locations' => $locations,
-                                 'tests' => $tests,
-                                 'invoices' => $invoices]);
+                                 'tests' => $tests]);
+    }
+
+    public function store(Request $request) {
+        $this->validate($request, [
+            'invoiceNo' => ['required'],
+            'sentDate' => ['required', 'date'],
+        ]);
+
+        Invoice::create(['test_id' => $request['test_id'],
+                         'invoiceNo' => $request['invoiceNo'],
+                         'sentDate' => $request['sentDate'],
+                         'paid' => "0"]);
+
+        return redirect()->route('showInvoice');
     }
 }
