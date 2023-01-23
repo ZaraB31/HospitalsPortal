@@ -55,7 +55,11 @@
                             @elseif($board->test->result === "Unsatisfactory")
                                 <td style="background-color: #C01D1F; color:white;">Circuits: {{$board->test->circuits}}</td>
                                 <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
-                                <td style="background-color: #C01D1F;"><button>Add Remedial</button></td>
+                                @if($board->test->remedial === null)
+                                <td style="background-color: #C01D1F;"><button onClick="openForm('newRemedialForm', {{$board->test->id}})">Add Remedial</button></td>
+                                @elseif($board->test->remedial !== null)
+                                <td style="background-color: #C01D1F;"><button>View Remedial Details</button></td>
+                                @endif
                             @endif
                         @endif
                     </tr>
@@ -127,6 +131,31 @@
             <option value="Satisfactory">Satisfactory</option>
             <option value="Unsatisfactory">Unsatisfactory</option>
         </select>
+
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+<div class="hiddenForm" id="newRemedialForm" style="display:none;">
+    <h2>Add New Remedial</h2>
+    <i onClick="closeForm('newRemedialForm')" class="fa-regular fa-circle-xmark"></i>
+
+    <form action="{{ route('storeRemedial') }}" method="post" enctype="multipart/form-data">
+        @include('includes.error')
+
+        <input type="text" name="test_id" id="test_id" class="foreign_id" style="display:none;">
+        
+        <label for="circuitNo">Circuit Number:</label>
+        <input type="text" name="circuitNo" id="circuitNo">
+
+        <label for="room">Room</label>
+        <input type="text" name="room" id="room">
+
+        <label for="description">Description</label>
+        <textarea name="description" id="description"></textarea>
+
+        <label for="images[]">Photos:</label>
+        <input type="file" name="images[]" id="images" multiple>
 
         <input type="submit" value="Save">
     </form>

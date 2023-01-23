@@ -24,4 +24,8 @@ class Test extends Model
     public function download() {
         return $this->belongTo(Download::class);
     }
+
+    public function remedial() {
+        return $this->hasOne(Remedial::class);
+    }
 }

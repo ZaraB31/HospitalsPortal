@@ -32,3 +32,6 @@ Route::get('/Hospitals/Admin', [App\Http\Controllers\AdminController::class, 'in
 
 Route::get('/Hospitals/Admin/Invoices', [App\Http\Controllers\InvoiceController::class, 'index'])->name('showInvoice');
 Route::post('/Hospitals/Admin/Invoices', [App\Http\Controllers\InvoiceController::class, 'store'])->name('storeInvoice');
+Route::post('/Hospitals/Admin/Invoices/Paid', [App\Http\Controllers\InvoiceController::class, 'paid'])->name('paidInvoice');
+
+Route::post('/Hospitals/Board/Remedials', [App\Http\Controllers\RemedialController::class, 'store'])->name('storeRemedial');

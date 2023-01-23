@@ -246,6 +246,10 @@ main .hiddenForm form {
   width: 100%;
   margin-top: 10px;
 }
+main .hiddenForm form textarea {
+  width: 100%;
+  height: 150px;
+}
 main .splitSection {
   display: flex;
   flex-wrap: wrap;

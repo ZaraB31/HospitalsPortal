@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('remedial_photos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('remedial_id')->references('id')->on('remedials')->onDelete('cascade');
-            $table->string('name');
             $table->string('file');
             $table->timestamps();
         });

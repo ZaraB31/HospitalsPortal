@@ -10,14 +10,14 @@ class Remedial extends Model
     use HasFactory;
 
     protected $fillable = [
-        'board_id', 'circuitNo', 'room', 'description', 'approved',
+        'test_id', 'circuitNo', 'room', 'description', 'approved',
     ];
 
     public function remedialPhoto() {
         return $this->hasMany(RemedialPhoto::class);
     }
 
-    public function board() {
-        return $this->belongsTo(Board::class);
+    public function test() {
+        return $this->belongsTo(Test::class);
     }
 }
