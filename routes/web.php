@@ -35,3 +35,4 @@ Route::post('/Hospitals/Admin/Invoices', [App\Http\Controllers\InvoiceController
 Route::post('/Hospitals/Admin/Invoices/Paid', [App\Http\Controllers\InvoiceController::class, 'paid'])->name('paidInvoice');
 
 Route::post('/Hospitals/Board/Remedials', [App\Http\Controllers\RemedialController::class, 'store'])->name('storeRemedial');
+Route::get('/Hospitals/Board/Remedials/{id}', [App\Http\Controllers\RemedialController::class, 'show'])->name('showRemedial');

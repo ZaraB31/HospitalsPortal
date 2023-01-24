@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('remedials', function (Blueprint $table) {
+        Schema::create('remedial_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('board_id')->references('id')->on('boards')->onDelete('cascade');
-            $table->string('circuitNo');
-            $table->string('room');
-            $table->longText('description');
-            $table->dateTime('estimatedCompletion');
-            $table->boolean('approved');
+            $table->foreignId('remedial_id')->references('id')->on('remedials')->onDelete('cascade');
+            $table->foreignId('price_id')->references('id')->on('prices')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('remidials');
+        Schema::dropIfExists('remedial_prices');
     }
 };

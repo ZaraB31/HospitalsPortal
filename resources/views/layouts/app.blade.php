@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <title>@yield('title')</title>
 </head>
-<body onLoad=openError()>
+<body onLoad="openError()">
     <header>
         @include('includes.header')
     </header>

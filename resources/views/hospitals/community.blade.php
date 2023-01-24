@@ -55,11 +55,6 @@
                             @elseif($board->test->result === "Unsatisfactory")
                                 <td style="background-color: #C01D1F; color:white;">Circuits: {{$board->test->circuits}}</td>
                                 <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
-                                @if($board->test->remedial === null)
-                                <td style="background-color: #C01D1F;"><button onClick="openForm('newRemedialForm', {{$board->test->id}})">Add Remedial</button></td>
-                                @elseif($board->test->remedial !== null)
-                                <td style="background-color: #C01D1F;"><button>View Remedial Details</button></td>
-                                @endif
                             @endif
                         @endif
                     </tr>

@@ -37,7 +37,7 @@ class RemedialController extends Controller
                           'approved' => '0']);                  
 
         foreach($request->file('images') as $image) {
-            $name = date('Y-m-d').'-'.$image->getClientOriginalName().$image->getClientOriginalExtension();
+            $name = date('Y-m-d').'-'.$image->getClientOriginalName();
             $target_path = public_path('/remedialPhotos');
             $image->move($target_path, $name);
 
@@ -49,7 +49,14 @@ class RemedialController extends Controller
             return redirect()->route('viewHospitalMain', $hospital['id']);
         } elseif($location['type'] === 'community') {
             return redirect()->route('viewHospitalCommunity', $hospital['id']);
-        }
-        
+        } 
+    }
+
+    public function show($id) {
+        $remedial = Remedial::findOrFail($id);
+        $remedialImages = RemedialPhoto::where('remedial_id', $id)->get();
+
+        return view('hospitals/remedial', ['remedial' => $remedial,
+                                           'remedialImages' => $remedialImages]);
     }
 }

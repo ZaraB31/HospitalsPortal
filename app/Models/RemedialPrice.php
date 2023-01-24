@@ -5,23 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Board extends Model
+class RemedialPrice extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'location_id', 'name',
+        'remedial_id', 'price_id',
     ];
-
-    public function location() {
-        return $this->belongsTo(Location::class);
-    }
-
-    public function test() {
-        return $this->hasOne(Test::class);
-    }
 
     public function remedial() {
         return $this->belongsTo(Remedial::class);
+    }
+
+    public function price() {
+        return $this->belongsTo(Price::class);
     }
 }

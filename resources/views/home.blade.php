@@ -20,6 +20,14 @@
     <h1>Hello {{$user->name}}</h1>
 </section>
 
+
+<section class="secondNav">
+    <ul>
+        <li><a>View Remedials</a></li>
+        <li><a>View Test Results</a></li>
+    </ul>
+</section>
+
 <section class="hospitalsDisplay">
     @foreach($hospitals as $hospital)
     <div>
@@ -29,6 +37,7 @@
     </div>
     @endforeach
 </section>
+
 
 <div class="hiddenForm" id="newHospitalForm" style="display:none;">
     

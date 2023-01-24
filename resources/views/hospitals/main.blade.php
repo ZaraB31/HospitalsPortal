@@ -29,36 +29,36 @@
     <table>
         @if($locations->count() > 0)
             @foreach($locations as $location)
-            <tr>
-                <th>{{$location->name}}</th>
-                <th colspan="2" style="text-align:right;">
-                    @if($user->type_id === 1 OR $user->type_id === 2)
-                    <button onClick="openForm('newBoardForm', '{{$location->id}}')">Add DB</button>
-                    @endif
-                </th>
-            </tr>
+                <tr>
+                    <th>{{$location->name}}</th>
+                    <th colspan="2" style="text-align:right;">
+                        @if($user->type_id === 1 OR $user->type_id === 2)
+                        <button onClick="openForm('newBoardForm', '{{$location->id}}')">Add DB</button>
+                        @endif
+                    </th>
+                </tr>
 
                 @foreach($locationBoards as $board)
                     @if($board->location_id === $location->id)
-                    <tr>
-                        <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
-                        @if($board->test === null)
-                        <td colspan="2">
-                            No Test Uploaded
-                            @if($user->type_id === 1 OR $user->type_id === 2)
-                                <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
+                        <tr>
+                            <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
+                            @if($board->test === null)
+                                <td colspan="2">
+                                    No Test Uploaded
+                                    @if($user->type_id === 1 OR $user->type_id === 2)
+                                        <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
+                                    @endif
+                                </td>
+                            @else
+                                @if($board->test->result === "Satisfactory")
+                                        <td style="background-color: #1FC01D;">Circuits: {{$board->test->circuits}}</td>
+                                        <td colspan="2" style="background-color: #1FC01D;">{{$board->test->result}}</td>
+                                @elseif($board->test->result === "Unsatisfactory")
+                                    <td style="background-color: #C01D1F; color:white;">Circuits: {{$board->test->circuits}}</td>
+                                    <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
+                                @endif
                             @endif
-                        </td>
-                        @else
-                            @if($board->test->result === "Satisfactory")
-                                <td style="background-color: #1FC01D;">Circuits: {{$board->test->circuits}}</td>
-                                <td style="background-color: #1FC01D;">{{$board->test->result}}</td>
-                            @elseif($board->test->result === "Unsatisfactory")
-                                <td style="background-color: #C01D1F;">Circuits: {{$board->test->circuits}}</td>
-                                <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
-                            @endif
-                        @endif
-                    </tr>
+                        </tr>
                     @endif
                 @endforeach
             @endforeach
@@ -127,6 +127,31 @@
             <option value="Satisfactory">Satisfactory</option>
             <option value="Unsatisfactory">Unsatisfactory</option>
         </select>
+
+        <input type="submit" value="Save">
+    </form>
+</div>
+
+<div class="hiddenForm" id="newRemedialForm" style="display:none;">
+    <h2>Add New Remedial</h2>
+    <i onClick="closeForm('newRemedialForm')" class="fa-regular fa-circle-xmark"></i>
+
+    <form action="{{ route('storeRemedial') }}" method="post" enctype="multipart/form-data">
+        @include('includes.error')
+
+        <input type="text" name="test_id" id="test_id" class="foreign_id" style="display:none;">
+        
+        <label for="circuitNo">Circuit Number:</label>
+        <input type="text" name="circuitNo" id="circuitNo">
+
+        <label for="room">Room</label>
+        <input type="text" name="room" id="room">
+
+        <label for="description">Description</label>
+        <textarea name="description" id="description"></textarea>
+
+        <label for="images[]">Photos:</label>
+        <input type="file" name="images[]" id="images" multiple>
 
         <input type="submit" value="Save">
     </form>
