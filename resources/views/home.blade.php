@@ -23,7 +23,7 @@
 
 <section class="secondNav">
     <ul>
-        <li><a>View Remedials</a></li>
+        <li><a href="/Hospitals/Board/Remedials">View Remedials</a></li>
         <li><a>View Test Results</a></li>
     </ul>
 </section>

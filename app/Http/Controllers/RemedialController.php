@@ -16,24 +16,28 @@ class RemedialController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function index() {
+        return view('remedials/index');
+    }
+
+    public function create() {
+        return view('remedials/create');
+    }
     
     public function store(Request $request) {
         $this->validate($request, [
             'circuitNo' => ['required'],
             'room' => ['required'],
-            'description' => ['required']
+            'description' => ['required'],
+            'expectedCompleteion' => ['required', 'date']
         ]);
 
-        $testID = $request['test_id'];
-        $test = Test::find($testID);
-        $board = Board::find($test['board_id']);
-        $location = Location::find($board['location_id']);
-        $hospital = Hospital::find($location['hospital_id']);
-
-        $remedial = Remedial::create(['test_id' => $request['test_id'],
+        $remedial = Remedial::create(['board_id' => $request['board_id'],
                           'circuitNo' => $request['circuitNo'],
                           'room' => $request['room'],
                           'description' => $request['description'],
+                          'expectedCompletion' => $request['expectedCompletion'],
                           'approved' => '0']);                  
 
         foreach($request->file('images') as $image) {
@@ -45,18 +49,14 @@ class RemedialController extends Controller
                                    'file' => $name]);
         }
 
-        if($location['type'] === 'main') {
-            return redirect()->route('viewHospitalMain', $hospital['id']);
-        } elseif($location['type'] === 'community') {
-            return redirect()->route('viewHospitalCommunity', $hospital['id']);
-        } 
+        return redirect()->route('displayRemedial');
     }
 
     public function show($id) {
         $remedial = Remedial::findOrFail($id);
         $remedialImages = RemedialPhoto::where('remedial_id', $id)->get();
 
-        return view('hospitals/remedial', ['remedial' => $remedial,
+        return view('remedials/show', ['remedial' => $remedial,
                                            'remedialImages' => $remedialImages]);
     }
 }

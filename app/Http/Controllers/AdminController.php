@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserType;
 use App\Models\Company;
+use App\Models\Price;
 use Auth;
 
 class AdminController extends Controller
@@ -20,10 +21,12 @@ class AdminController extends Controller
         $users = User::all()->sortBy('name');
         $userTypes = UserType::all();
         $companies = Company::all();
+        $prices = Price::all();
 
         return view('admin', ['user' => $user,
                               'users' => $users,
                               'userTypes' => $userTypes,
-                              'companies' => $companies]);
+                              'companies' => $companies,
+                              'prices' => $prices]);
     }
 }

@@ -24,6 +24,19 @@
             </tr>
             @endforeach
         </table>
+
+        <table>
+            <tr>
+                <th>Defects</th>
+                <th style="text-align:right;"><button onClick="openForm('newDefectForm', 0)">Add New</button></th>
+            </tr>
+            @foreach($prices as $price)
+            <tr>
+                <td>{{$price->defect}}</td>
+                <td>£{{$price->price}}</td>
+            </tr>
+            @endforeach
+        </table>
     </article>
 
     <article class="halfSection">
@@ -51,8 +64,24 @@
             @endforeach
         </table>
     </article>
-
 </section>
+
+<div class="hiddenForm" id="newDefectForm" style="display:none;">
+    <h2>New Defect</h2>
+    <i onClick="closeForm('newDefectForm')" class="fa-regular fa-circle-xmark"></i>
+
+    <form action="{{ route('storeDefect') }}" method="post" enctype="multipart/form-data">
+        @include('includes.error')
+
+        <label for="defect">Defect Name:</label>
+        <input type="text" name="defect" id="defect">
+
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price">
+
+        <input type="submit" value="Save">
+    </form>
+</div>
 
 @else
 <section>
