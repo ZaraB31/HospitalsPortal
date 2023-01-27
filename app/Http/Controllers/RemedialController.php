@@ -81,4 +81,13 @@ class RemedialController extends Controller
                                        'remedialImages' => $remedialImages,
                                        'remedialPrices' => $remedialPrices]);
     }
+
+    public function approve(Request $request) {
+        $id = $request['remedial_id'];
+        $remedial = Remedial::findOrFail($id);
+        $remedial->approved = "1";
+        $remedial->update();
+
+        return redirect()->route('showRemedial', $id);
+    }
 }

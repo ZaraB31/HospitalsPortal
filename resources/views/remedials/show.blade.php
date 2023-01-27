@@ -21,9 +21,10 @@
         <h2>Marked as Approved?</h2>
         @if($remedial->approved === 0)
             <p>Not Approved</p>
-            <button>Approve</button>
+            <button  onClick="openForm('approveRemedialForm', {{$remedial->id}})">Approve</button>
         @elseif($remedial->approved === 1)
-            <p>Works Approved</p>
+            <p>Works Approved on {{date('j F Y, g:i a', strtotime($remedial->updated_at))}}</p>
+            <p>Please consult the schedule for when the works are to be completed</p>
         @endif
     </aside>
 </section>
@@ -33,6 +34,20 @@
     <img src="/remedialPhotos/{{$image->file}}" alt="">
     @endforeach
 </section>
+
+<div class="hiddenForm" id="approveRemedialForm" style="display:none;">
+    <h2>Approve Remedial</h2>
+    <i onClick="closeForm('approveRemedialForm')" class="fa-regular fa-circle-xmark"></i>
+    <p>Are you sure you want to approve this work? Once approved, it can not be changed.</p>
+
+    <form action="{{ route('approveRemedial') }}" method="post" enctype="multipart/form-data">
+        @include('includes.error')
+
+        <input type="text" name="remedial_id" id="remedial_id" class="foreign_id" style="display:none;">
+
+        <input style="width:70%; margin-left:15%;" type="submit" value="Approve">
+    </form>
+</div>
 
 <script>
     var y = document.getElementById("remedialDetails");

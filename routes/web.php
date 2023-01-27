@@ -40,3 +40,4 @@ Route::get('/Hospitals/Board/Remedials', [App\Http\Controllers\RemedialControlle
 Route::get('/Hospitals/Board/Remedials/Create', [App\Http\Controllers\RemedialController::class, 'create'])->name('createRemedial');
 Route::post('/Hospitals/Board/Remedials/Create', [App\Http\Controllers\RemedialController::class, 'store'])->name('storeRemedial');
 Route::get('/Hospitals/Board/Remedials/{id}', [App\Http\Controllers\RemedialController::class, 'show'])->name('showRemedial');
+Route::post('/Hospitals/Board/Remedials/approve', [App\Http\Controllers\RemedialController::class, 'approve'])->name('approveRemedial');

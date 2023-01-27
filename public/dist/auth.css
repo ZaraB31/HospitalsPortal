@@ -151,6 +151,11 @@ button:hover, a:hover {
   text-decoration: underline;
 }
 
+.fa-solid.fa-arrow-left {
+  margin: 0;
+  margin-right: 3px;
+}
+
 main {
   width: 40vw;
   margin: auto;
