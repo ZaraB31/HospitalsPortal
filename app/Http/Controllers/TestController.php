@@ -9,6 +9,8 @@ use App\Models\Location;
 use App\Models\Hospital;
 use Validator;
 use File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewTest;
 
 class TestController extends Controller
 {
@@ -41,11 +43,13 @@ class TestController extends Controller
         $location = Location::find($board->location_id);
         $hospital = Hospital::find($location->hospital_id);
         
-        Test::create(['name' => $request['name'],
+        $test = Test::create(['name' => $request['name'],
                       'file' => $testName,
                       'board_id' => $request['board_id'],
                       'circuits' => $request['circuits'],
                       'result' => $request['result']]);
+
+        Mail::to('zara.bostock@mega-electrical.co.uk')->send(new NewTest($test));
 
         if($location->type === 'main') {
             return redirect()->route('viewHospitalMain', $hospital->id)->with('success', 'Test Uploaded!');
