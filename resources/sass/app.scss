@@ -152,13 +152,31 @@ main {
     .invoices tr{
         border: none;
     }
+    #remedialDetails {
+        display: flex;
+        justify-content: space-between;
+        article {
+            width: 70%;
+        }
+        aside {
+            width: 25%;
+            background-color: $blue;
+            height: max-content;
+            padding: 1%;
+            color: white;
+            text-align: center;
+            button {
+                width: 80%;
+                background-color: $grey;
+            }
+        }
+    }
     .remedialImages {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-evenly;
         img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
+            width: 40%;
         }
     }
     textarea.description {
@@ -167,4 +185,34 @@ main {
         border: none;
         width: 100%;
     }
+    .hidden {
+        display: none;
+    }
+    .createForm{
+        input, textarea {
+            width: 99.5%;
+        }
+        select {
+            width: 100%;
+        }
+        input[type=submit] {
+            width: 40%;
+        }
+        textarea {
+            border: 2px solid $blue;
+            resize: none;
+            height: 100px;
+        }
+        .checkboxContainer {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            margin: 10px 0;
+        }
+        .checkbox {
+            input[type=checkbox] {
+                width: min-content;
+            }
+        }
+    }
+
 }

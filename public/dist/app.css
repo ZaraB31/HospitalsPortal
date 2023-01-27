@@ -1,6 +1,7 @@
 body {
   background-color: #F0F1F2;
   margin: 0;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -44,7 +45,7 @@ section h1 {
   font-size: 2em;
 }
 
-form input {
+form input, form select {
   width: 99%;
   margin-bottom: 10px;
   border: none;
@@ -294,19 +295,63 @@ main table.invoices tr:nth-child(even) {
 main .invoices tr {
   border: none;
 }
+main #remedialDetails {
+  display: flex;
+  justify-content: space-between;
+}
+main #remedialDetails article {
+  width: 70%;
+}
+main #remedialDetails aside {
+  width: 25%;
+  background-color: #1D70C0;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 1%;
+  color: white;
+  text-align: center;
+}
+main #remedialDetails aside button {
+  width: 80%;
+  background-color: #ACB2BA;
+}
 main .remedialImages {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 main .remedialImages img {
-  width: 200px;
-  height: 200px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  width: 40%;
 }
 main textarea.description {
   resize: none;
   background-color: #F0F1F2;
   border: none;
   width: 100%;
+}
+main .hidden {
+  display: none;
+}
+main .createForm input, main .createForm textarea {
+  width: 99.5%;
+}
+main .createForm select {
+  width: 100%;
+}
+main .createForm input[type=submit] {
+  width: 40%;
+}
+main .createForm textarea {
+  border: 2px solid #1D70C0;
+  resize: none;
+  height: 100px;
+}
+main .createForm .checkboxContainer {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  margin: 10px 0;
+}
+main .createForm .checkbox input[type=checkbox] {
+  width: -moz-min-content;
+  width: min-content;
 }

@@ -1,6 +1,7 @@
 body {
   background-color: #F0F1F2;
   margin: 0;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -44,7 +45,7 @@ section h1 {
   font-size: 2em;
 }
 
-form input {
+form input, form select {
   width: 99%;
   margin-bottom: 10px;
   border: none;

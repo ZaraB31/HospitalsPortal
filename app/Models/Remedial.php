@@ -10,7 +10,7 @@ class Remedial extends Model
     use HasFactory;
 
     protected $fillable = [
-        'test_id', 'circuitNo', 'room', 'description', 'approved',
+        'board_id', 'circuitNo', 'room', 'description', 'approved', 'estimatedCompletion',
     ];
 
     public function remedialPhoto() {

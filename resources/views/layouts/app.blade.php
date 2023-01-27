@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/dist/app.css">
     <script src="/dist/hiddenForm.js"></script>
     <script src="/dist/openTable.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/7d0f299f51.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
