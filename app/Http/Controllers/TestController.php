@@ -16,6 +16,12 @@ class TestController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function index() {
+        $tests = Test::all()->sortByDesc('created_at');
+
+        return view('hospitals/testsIndex', ['tests' => $tests]);
+    }
     
     public function store(Request $request) {
         $this->validate($request, [
