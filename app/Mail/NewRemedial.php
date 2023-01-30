@@ -9,29 +9,29 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Test;
+use App\Models\Remedial;
 
-class NewTest extends Mailable
+class NewRemedial extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $test;
+    public $remedial;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Test $test)
+    public function __construct(Remedial $remedial)
     {
-        $this->test = $test;
+        $this->remedial = $remedial;
     }
 
     public function envelope()
     {
         return new Envelope(
             from: new Address('megaelectrical.testing@gmail.com', 'Mega Electrical Testing'),
-            subject: 'New Test',
+            subject: 'New Remedial',
         );
     }
 
@@ -43,7 +43,7 @@ class NewTest extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.NewTest',
+            view: 'emails.NewRemedial',
         );
     }
 }

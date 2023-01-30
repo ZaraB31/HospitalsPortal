@@ -11,7 +11,11 @@ use App\Models\Board;
 use App\Models\Location;
 use App\Models\Hospital;
 use App\Models\Price;
+use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewRemedial;
+use App\Mail\ApprovedRemedial;
 
 class RemedialController extends Controller
 {
@@ -22,7 +26,7 @@ class RemedialController extends Controller
 
     public function index() {
         $user = Auth()->user();
-        $remedials = Remedial::all()->sortBy('created_at');
+        $remedials = Remedial::all()->sortByDesc('created_at');
 
         return view('remedials/index', ['user' => $user,
                                         'remedials' => $remedials]);
@@ -48,7 +52,14 @@ class RemedialController extends Controller
             'estimatedCompletion' => ['required', 'date']
         ]);
 
+        $userID = Auth()->user()->id;
+
+        $board = Board::find($request['board_id']);
+        $location = Location::find($board['location_id']);
+        $hospital = Hospital::find($location['hospital_id']);
+
         $remedial = Remedial::create(['board_id' => $request['board_id'],
+                                      'user_id' => $userID,
                                       'circuitNo' => $request['circuitNo'],
                                       'room' => $request['room'],
                                       'description' => $request['description'],
@@ -69,6 +80,8 @@ class RemedialController extends Controller
                                    'file' => $name]);
         }
 
+        Mail::to($hospital['email'])->send(new NewRemedial($remedial));
+
         return redirect()->route('displayRemedial');
     }
 
@@ -87,6 +100,9 @@ class RemedialController extends Controller
         $remedial = Remedial::findOrFail($id);
         $remedial->approved = "1";
         $remedial->update();
+
+        $user = User::find($remedial['user_id']);
+        Mail::to($user['email'])->send(new ApprovedRemedial($remedial));
 
         return redirect()->route('showRemedial', $id);
     }

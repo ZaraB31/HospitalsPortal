@@ -20,11 +20,17 @@
         <tr>
             <th>Location</th>
             <th>Date Raised</th>
+            <th>Approved?</th>
         </tr>
         @foreach($remedials as $remedial)
         <tr>
             <td><a href="/Hospitals/Board/Remedials/{{$remedial->id}}">{{$remedial->board->location->hospital->name}} - {{$remedial->board->location->name}} - {{$remedial->board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
-            <td style="border-left: 1px solid #9098A3;">{{date('j F Y, g:i a', strtotime($remedial->created_at))}}</td>
+            <td>{{date('j F Y, g:i a', strtotime($remedial->created_at))}}</td>
+            @if($remedial->approved === 0)
+            <td>Not Approved</td>
+            @elseif($remedial->approved === 1)
+            <td>Approved</td>
+            @endif
         </tr>
         @endforeach
     </table>

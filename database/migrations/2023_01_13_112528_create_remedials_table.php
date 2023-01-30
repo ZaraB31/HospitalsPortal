@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('remedials', function (Blueprint $table) {
             $table->id();
             $table->foreignId('board_id')->references('id')->on('boards')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('circuitNo');
             $table->string('room');
             $table->longText('description');
