@@ -45,10 +45,10 @@ class TestController extends Controller
         $hospital = Hospital::find($location->hospital_id);
         
         $test = Test::create(['name' => $request['name'],
-                      'file' => $testName,
-                      'board_id' => $request['board_id'],
-                      'circuits' => $request['circuits'],
-                      'result' => $request['result']]);
+                              'file' => $testName,
+                              'board_id' => $request['board_id'],
+                              'circuits' => $request['circuits'],
+                              'result' => $request['result']]);
 
         Mail::to($hospital['email'])->send(new NewTest($test));
         Mail::to('accounts@mega-electrical.co.uk')->send(new AccountsNewTest($test));

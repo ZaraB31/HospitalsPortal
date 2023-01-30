@@ -1,0 +1,31 @@
+.fc-today-button.fc-button.fc-button-primary{
+    font-family: 'Roboto', sans-serif;;
+}
+
+.fc-col-header {
+    margin: 0;
+}
+
+.fc-col-header-cell.fc-day {
+    border: none;
+    div{
+        a {
+            color: white;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    }
+}
+div.fc-daygrid-day-top{
+    flex-direction: row;
+}
+.fc-scroller.fc-scroller-liquid-absolute{
+    overflow: visible;
+}
+#calendar table {
+    margin-bottom: 0;
+    td {
+        padding: 5px;
+        border: 1px solid $blue;
+    }
+}

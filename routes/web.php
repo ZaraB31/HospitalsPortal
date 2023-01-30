@@ -41,3 +41,5 @@ Route::get('/Hospitals/Board/Remedials/Create', [App\Http\Controllers\RemedialCo
 Route::post('/Hospitals/Board/Remedials/Create', [App\Http\Controllers\RemedialController::class, 'store'])->name('storeRemedial');
 Route::get('/Hospitals/Board/Remedials/{id}', [App\Http\Controllers\RemedialController::class, 'show'])->name('showRemedial');
 Route::post('/Hospitals/Board/Remedials/approve', [App\Http\Controllers\RemedialController::class, 'approve'])->name('approveRemedial');
+
+Route::get('/Schedule', [App\Http\Controllers\ScheduleController::class, 'index'])->name('showSchedule');

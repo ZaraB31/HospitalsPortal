@@ -24,4 +24,8 @@ class Location extends Model
     public function job() {
         return $this->belongsTo(Location::class);
     }
+
+    public function schedule() {
+        return $this->hasMany(Schedule::class);
+    }
 }
