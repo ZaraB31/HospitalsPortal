@@ -11,6 +11,7 @@ use Validator;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewTest;
+use App\Mail\AccountsNewTest;
 
 class TestController extends Controller
 {
@@ -49,7 +50,8 @@ class TestController extends Controller
                       'circuits' => $request['circuits'],
                       'result' => $request['result']]);
 
-        Mail::to('zara.bostock@mega-electrical.co.uk')->send(new NewTest($test));
+        Mail::to($hospital['email'])->send(new NewTest($test));
+        Mail::to('accounts@mega-electrical.co.uk')->send(new AccountsNewTest($test));
 
         if($location->type === 'main') {
             return redirect()->route('viewHospitalMain', $hospital->id)->with('success', 'Test Uploaded!');

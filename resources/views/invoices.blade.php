@@ -17,27 +17,20 @@
     <table class="invoices">
         @foreach($tests as $test)
         <tr>
-            <td>{{$test->name}}</td>
-            <td>{{$test->board->name}}</td>
-            <td>{{$test->board->location->name}}</td>
-            <td>{{$test->board->location->hospital->name}}</td>
-        </tr>
-        @if($test->invoice === null)
-        <tr>
-            <td colspan="4">No Invoice added <button onClick="openForm('newInvoiceForm', {{$test->id}})">Add now</button></td>
-        </tr>        
-        @else 
-        <tr>
+            <td style="width:45%">{{$test->board->location->hospital->name}} - {{$test->board->location->name}} - {{$test->board->name}} - {{$test->name}}</td>
+            @if($test->invoice === null)
+            <td>No Invoice added</td> 
+            <td colspan="2"><button onClick="openForm('newInvoiceForm', {{$test->id}})">Add now</button></td>        
+            @else 
             <td>Number: {{$test->invoice->invoiceNo}}</td>
-            <td>{{date('d-M-Y g:ia', strtotime($test->invoice->sentDate))}}</td>
+            <td>Sent: {{date('d-M-Y', strtotime($test->invoice->sentDate))}}</td>
                 @if($test->invoice->paid === 0)
-                <td>Not Paid</td>
                 <td><button onClick="openForm('newPaidInvoiceForm', {{$test->invoice->id}})">Mark as Paid</button></td>
                 @elseif($test->invoice->paid === 1)
                 <td>Paid</td>
                 @endif
+            @endif
         </tr>
-        @endif
         @endforeach
     </table>
 </section>
