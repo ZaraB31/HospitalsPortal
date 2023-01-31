@@ -11,6 +11,7 @@
             initialView: 'dayGridMonth',
             events: @json($events),
             eventDisplay: 'block',
+            height: 'auto',
             eventClick: function(event) {
                 if (event.url) {
                     window.open(event.url, "_blank");
@@ -18,6 +19,7 @@
                 }
             }  
         });
+        
         calendar.render();
     });
 </script>
@@ -30,9 +32,34 @@
     <button class="createButton" onClick="openForm('newScheduleForm', '0')"><i class="fa-solid fa-plus"></i></button>
 @endif
 
-<section>
-    <div id="calendar"></div>
-</section>
+<article class="splitSection">
+    <section style="width:60%;">
+        <div id="calendar"></div>
+    </section>
+
+    <section class="eventDetails" style="width:30%;">
+        <h2>{{$event->location->name}}</h2>
+        <a href="/Schedule"><i class="fa-regular fa-circle-xmark"></i></a>
+        <p><b>Hospital:</b> {{$event->location->hospital->name}}</p>
+        <p><b>Start:</b> {{date('j F Y, g:i a', strtotime($event->start))}}</p>
+        <p><b>End:</b> {{date('j F Y, g:i a', strtotime($event->end))}}</p>
+        @if($event->approved === 0)
+        <p><b>Approval:</b> Not Approved</p>
+        <button>Approve Now</button>
+        @elseif($event->approved === 1)
+        <p><b>Approval:</b> Approved</p>
+        @endif
+
+        @if($event->completed === 0)
+        <p><b>Completion Status:</b> Not Completed</p>
+        <button>Mark as Completed</button>
+        @elseif($event->completed === 1)
+        <p><b>Completion Status:</b> Completed</p>
+        @endif
+    </section>
+</article>
+
+
 
 <div class="hiddenForm" id="newScheduleForm" style="display:none;">
     <h2>Add New Event</h2>
@@ -40,26 +67,6 @@
 
     <form action="{{ route('storeSchedule') }}" method="post">
         @include('includes.error')
-
-        <label for="location_id">Location:</label>
-        <select name="location_id" id="location_id">
-            <option value="">Select...</option>
-            @foreach($hospitals as $hospital)
-            <optgroup label="{{$hospital->name}}">
-            @foreach($locations as $location)
-            @if($location->hospital_id === $hospital->id)
-            <option value="{{$location->id}}">{{$location->name}}</option>
-            @endif
-            @endforeach
-            </optgroup>
-            @endforeach
-        </select>
-
-        <label for="start">Start Date and Time:</label>
-        <input type="datetime-local" name="start" id="start">
-
-        <label for="end">End Date and Time:</label>
-        <input type="datetime-local" name="end" id="end">
 
         <input type="submit" value="Save">
     </form>

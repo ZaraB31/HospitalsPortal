@@ -186,7 +186,10 @@ div.fc-daygrid-day-top {
 }
 #calendar table td {
   padding: 5px;
-  border: 1px solid #1D70C0;
+}
+
+.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-daygrid-event.fc-daygrid-block-event.fc-h-event {
+  border: none;
 }
 
 header {
@@ -292,6 +295,7 @@ main .hiddenForm {
   align-items: center;
   flex-wrap: wrap;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 10;
 }
 main .hiddenForm i {
   font-size: 20px;
@@ -302,6 +306,9 @@ main .hiddenForm i:hover {
 main .hiddenForm form {
   width: 100%;
   margin-top: 10px;
+}
+main .hiddenForm form select {
+  width: 100%;
 }
 main .hiddenForm form textarea {
   width: 100%;
@@ -392,4 +399,21 @@ main .createForm .checkboxContainer {
 main .createForm .checkbox input[type=checkbox] {
   width: -moz-min-content;
   width: min-content;
+}
+main .eventDetails {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #ACB2BA;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 2%;
+}
+main .eventDetails p {
+  width: 100%;
+  margin-bottom: 0;
+}
+main .eventDetails button {
+  margin-top: 10px;
+  width: 100%;
 }

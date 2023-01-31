@@ -26,6 +26,8 @@ div.fc-daygrid-day-top{
     margin-bottom: 0;
     td {
         padding: 5px;
-        border: 1px solid $blue;
     }
+}
+.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-daygrid-event.fc-daygrid-block-event.fc-h-event {
+    border: none;
 }

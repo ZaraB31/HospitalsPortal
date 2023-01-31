@@ -10,7 +10,7 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'location_id', 'start', 'end',
+        'location_id', 'start', 'end', 'approved', 'completed',
     ];
 
     public function Location() {
