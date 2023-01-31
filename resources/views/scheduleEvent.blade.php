@@ -45,7 +45,7 @@
         <p><b>End:</b> {{date('j F Y, g:i a', strtotime($event->end))}}</p>
         @if($event->approved === 0)
         <p><b>Approval:</b> Not Approved</p>
-        <button>Approve Now</button>
+        <button onClick="openForm('approveScheduleForm', {{$event->id}})">Approve Now</button>
         @elseif($event->approved === 1)
         <p><b>Approval:</b> Approved</p>
         @endif
@@ -59,8 +59,6 @@
     </section>
 </article>
 
-
-
 <div class="hiddenForm" id="newScheduleForm" style="display:none;">
     <h2>Add New Event</h2>
     <i onClick="closeForm('newScheduleForm')" class="fa-regular fa-circle-xmark"></i>
@@ -68,7 +66,42 @@
     <form action="{{ route('storeSchedule') }}" method="post">
         @include('includes.error')
 
+        <label for="location_id">Location:</label>
+        <select name="location_id" id="location_id">
+            <option value="">Select...</option>
+            @foreach($hospitals as $hospital)
+            <optgroup label="{{$hospital->name}}">
+            @foreach($locations as $location)
+            @if($location->hospital_id === $hospital->id)
+            <option value="{{$location->id}}">{{$location->name}}</option>
+            @endif
+            @endforeach
+            </optgroup>
+            @endforeach
+        </select>
+
+        <label for="start">Start Date and Time:</label>
+        <input type="datetime-local" name="start" id="start">
+
+        <label for="end">End Date and Time:</label>
+        <input type="datetime-local" name="end" id="end">
+
         <input type="submit" value="Save">
+    </form>
+</div>
+
+<div class="hiddenForm" id="approveScheduleForm" style="display:none;">
+    <h2>Approve Event</h2>
+    <i onClick="closeForm('approveScheduleForm')" class="fa-regular fa-circle-xmark"></i>
+    <p>Once this event has been approved, it will be added to the schedule of works and therefore can not be changed.</p>
+    <p style="margin-top:0;">Are you sure you want to approve?</p>
+
+    <form action="{{ route('approveSchedule') }}" method="post">
+        @include('includes.error')
+
+        <input type="text" name="schedule_id" id="schedule_id" class="foreign_id" style="display:none;">
+
+        <input style="width:70%; margin-left:15%;" type="submit" value="Approve">
     </form>
 </div>
 

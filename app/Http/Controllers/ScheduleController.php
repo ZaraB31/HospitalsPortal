@@ -8,6 +8,9 @@ use App\Models\Location;
 use App\Models\Hospital;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewEvent;
+use App\Mail\ApprovedEvent;
 
 class ScheduleController extends Controller
 {
@@ -92,10 +95,14 @@ class ScheduleController extends Controller
 
         $event = Schedule::findOrFail($id);
         $user = Auth()->User();
+        $locations = Location::all()->sortBy('name');
+        $hospitals = Hospital::all()->sortBy('name');
 
-        return view('scheduleEvent', ['event' => $event,
-                                      'events' => $events,
-                                      'user' => $user]);
+        return view('scheduleEvent', ['events' => $events,
+                                      'event' => $event,
+                                      'user' => $user,
+                                      'locations' => $locations,
+                                      'hospitals' => $hospitals]);
     }
 
     public function store(Request $request) {
@@ -105,12 +112,29 @@ class ScheduleController extends Controller
             'end' => ['required', 'date', 'after:start'],
         ]);
 
+        $location = Location::find($request['location_id']);
+        $hospital = Hospital::find($location['hospital_id']);
+
         $event = Schedule::create(['location_id' => $request['location_id'],
                                    'start' => $request['start'],
                                    'end' => $request['end'],
                                    'approved' => 0,
                                    'completed' => 0]);
 
+        Mail::to($hospital['email'])->send(new NewEvent($event));
+
         return redirect()->route('showSchedule');
+    }
+
+    public function approve(Request $request) {
+        $id = $request['schedule_id'];
+        $event = Schedule::findOrFail($id);
+
+        $event->approved = "1";
+        $event->update();
+
+        Mail::to('zara.bostock@mega-electrical.co.uk')->send(new ApprovedEvent($event));
+
+        return redirect()->route('showEvent', $id);
     }
 }

@@ -416,4 +416,5 @@ main .eventDetails p {
 main .eventDetails button {
   margin-top: 10px;
   width: 100%;
+  color: white;
 }
