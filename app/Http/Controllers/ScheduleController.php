@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewEvent;
 use App\Mail\ApprovedEvent;
+use App\Mail\CompletedEvent;
 
 class ScheduleController extends Controller
 {
@@ -67,8 +68,8 @@ class ScheduleController extends Controller
         foreach($appointments as $appointment) {
             $location = Location::find($appointment['location_id']);
             $today = Carbon::now();
-            $id = strval($appointment['id']);
-            $url = 'http://localhost:8000/Schedule/'.$id;
+            $appointmentID = strval($appointment['id']);
+            $url = 'http://localhost:8000/Schedule/'.$appointmentID;
 
             if($appointment['approved'] == 0 && $appointment['completed'] == 0) {
                 $colour = '#E48F1B';
@@ -134,6 +135,21 @@ class ScheduleController extends Controller
         $event->update();
 
         Mail::to('zara.bostock@mega-electrical.co.uk')->send(new ApprovedEvent($event));
+
+        return redirect()->route('showEvent', $id);
+    }
+
+    public function complete(Request $request) {
+        $id = $request['schedule_id'];
+        $event = Schedule::findOrFail($id);
+
+        $location = Location::find($event['location_id']);
+        $hospital = Hospital::find($location['hospital_id']);
+
+        $event->completed = "1";
+        $event->update();
+
+        Mail::to($hospital['email'])->send(new CompletedEvent($event));
 
         return redirect()->route('showEvent', $id);
     }

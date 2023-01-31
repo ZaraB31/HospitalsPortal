@@ -38,7 +38,7 @@
     </section>
 
     <section class="eventDetails" style="width:30%;">
-        <h2>{{$event->location->name}}</h2>
+        <h2 style="max-width:90%;">{{$event->location->name}}</h2>
         <a href="/Schedule"><i class="fa-regular fa-circle-xmark"></i></a>
         <p><b>Hospital:</b> {{$event->location->hospital->name}}</p>
         <p><b>Start:</b> {{date('j F Y, g:i a', strtotime($event->start))}}</p>
@@ -48,14 +48,17 @@
         <button onClick="openForm('approveScheduleForm', {{$event->id}})">Approve Now</button>
         @elseif($event->approved === 1)
         <p><b>Approval:</b> Approved</p>
+            @if($event->completed === 0)
+            <p><b>Completion Status:</b> Not Completed</p>
+                @if($user->type_id === 1 OR $user->type_id === 2)
+                <button onClick="openForm('completeScheduleForm', {{$event->id}})">Mark as Completed</button>
+                @endif
+            @elseif($event->completed === 1)
+            <p><b>Completion Status:</b> Completed</p>
+            @endif
         @endif
 
-        @if($event->completed === 0)
-        <p><b>Completion Status:</b> Not Completed</p>
-        <button>Mark as Completed</button>
-        @elseif($event->completed === 1)
-        <p><b>Completion Status:</b> Completed</p>
-        @endif
+        
     </section>
 </article>
 
@@ -102,6 +105,22 @@
         <input type="text" name="schedule_id" id="schedule_id" class="foreign_id" style="display:none;">
 
         <input style="width:70%; margin-left:15%;" type="submit" value="Approve">
+    </form>
+</div>
+
+<div class="hiddenForm" id="completeScheduleForm" style="display:none;">
+    <h2>Mark location as completed</h2>
+    <i onClick="closeForm('completeScheduleForm')" class="fa-regular fa-circle-xmark"></i>
+    <p>Once this location has been marked as completed, it will be pressumed that all work has been completed. 
+        If the work has not been completed, please speak to the site manager.</p>
+    <p style="margin-top:0;">Are you sure you want to mark this location as completed?</p>
+
+    <form action="{{ route('completeSchedule') }}" method="post">
+        @include('includes.error')
+
+        <input type="text" name="schedule_id" id="schedule_id" class="foreign_id" style="display:none;">
+
+        <input style="width:70%; margin-left:15%;" type="submit" value="Mark as Completed">
     </form>
 </div>
 
