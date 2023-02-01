@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Test;
 use App\Models\Invoice;
 use Auth;
 
@@ -16,10 +15,10 @@ class InvoiceController extends Controller
 
     public function index() {
         $user = Auth()->user();
-        $tests = Test::all()->sortByDesc('created_at');
+        $invoices = Invoice::all()->sortByDesc('created_at');
 
         return view('invoices', ['user' => $user,
-                                 'tests' => $tests]);
+                                 'invoices' => $invoices]);
     }
 
     public function store(Request $request) {
@@ -28,10 +27,19 @@ class InvoiceController extends Controller
             'sentDate' => ['required', 'date'],
         ]);
 
-        Invoice::create(['test_id' => $request['test_id'],
-                         'invoiceNo' => $request['invoiceNo'],
+        Invoice::create(['invoiceNo' => $request['invoiceNo'],
                          'sentDate' => $request['sentDate'],
-                         'paid' => "0"]);
+                         'paid' => "0",
+                         'details' => $request['details']]);
+
+        return redirect()->route('showInvoice');
+    }
+
+    public function paid(Request $request) {
+        $invoice = Invoice::findOrFail($request['invoice_id']);
+
+        $invoice->paid = "1";
+        $invoice->update();
 
         return redirect()->route('showInvoice');
     }

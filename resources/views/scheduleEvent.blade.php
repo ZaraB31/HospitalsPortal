@@ -19,7 +19,6 @@
                 }
             }  
         });
-        
         calendar.render();
     });
 </script>
@@ -45,7 +44,9 @@
         <p><b>End:</b> {{date('j F Y, g:i a', strtotime($event->end))}}</p>
         @if($event->approved === 0)
         <p><b>Approval:</b> Not Approved</p>
-        <button onClick="openForm('approveScheduleForm', {{$event->id}})">Approve Now</button>
+            @if($user->type_id === 3)
+            <button onClick="openForm('approveScheduleForm', {{$event->id}})">Approve Now</button>
+            @endif
         @elseif($event->approved === 1)
         <p><b>Approval:</b> Approved</p>
             @if($event->completed === 0)
@@ -57,8 +58,6 @@
             <p><b>Completion Status:</b> Completed</p>
             @endif
         @endif
-
-        
     </section>
 </article>
 

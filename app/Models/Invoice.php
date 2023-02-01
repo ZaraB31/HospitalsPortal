@@ -10,7 +10,7 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'test_id', 'invoiceNo', 'sentDate', 'paid',
+        'invoiceNo', 'sentDate', 'paid', 'details',
     ];
 
     public function Test() {

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('test_id')->references('id')->on('tests')->onDelete('cascade');
             $table->string('invoiceNo');
             $table->dateTime('sentDate');
+            $table->longText('details');
             $table->boolean('paid');
             $table->timestamps();
         });

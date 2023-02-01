@@ -322,11 +322,28 @@ main .splitSection {
 main .splitSection .halfSection {
   width: 48%;
 }
+main .splitSection aside {
+  background-color: #1D70C0;
+  padding: 2%;
+  color: white;
+}
+main .splitSection aside form input[type=submit] {
+  background-color: #ACB2BA;
+  margin-top: 10px;
+  color: black;
+}
+main .splitSection aside form textarea {
+  height: 150px;
+}
 main .testDetails {
   background-color: #ACB2BA;
 }
-main form input {
+main form input, main form textarea {
   border: 2px solid #1D70C0;
+}
+main form textarea {
+  width: 100%;
+  resize: none;
 }
 main select {
   width: 60%;
@@ -417,4 +434,24 @@ main .eventDetails button {
   margin-top: 10px;
   width: 100%;
   color: white;
+}
+main .invoiceDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+main .invoiceDetails div {
+  width: 28%;
+  padding: 2%;
+  background-color: #ACB2BA;
+}
+main .invoiceDetails div p {
+  margin-top: 0;
+}
+main .invoiceDetails div textarea {
+  border: none;
+  width: 100%;
+  resize: none;
+  height: 150px;
+  background-color: #ACB2BA;
 }

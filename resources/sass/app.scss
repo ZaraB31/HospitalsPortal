@@ -134,13 +134,32 @@ main {
         .halfSection {
             width: 48%;
         }
+        aside {
+            background-color: $blue;
+            padding: 2%;
+            color: white;
+            form {
+                input[type=submit] {
+                    background-color: $grey;
+                    margin-top: 10px;
+                    color: black;
+                }
+                textarea {
+                    height: 150px;
+                }
+            }
+        }
     }
     .testDetails {
         background-color: $grey;
     }
     form {
-        input {
+        input, textarea {
             border: 2px solid $blue;
+        }
+        textarea {
+            width: 100%;
+            resize: none;
         }
     }
     select {
@@ -234,6 +253,26 @@ main {
             margin-top: 10px;
             width: 100%;
             color: white;
+        }
+    }
+    .invoiceDetails {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        div {
+            width: 28%;
+            padding: 2%;
+            background-color: $grey;
+            p {
+                margin-top: 0;
+            }
+            textarea {
+                border: none;
+                width: 100%;
+                resize: none;
+                height: 150px;
+                background-color: $grey;
+            }
         }
     }
 }

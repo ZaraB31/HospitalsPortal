@@ -9,30 +9,26 @@
     <a href="/Hospitals/Admin"><i class="fa-solid fa-arrow-left"></i> Back</a>
 </section>
 
+<button class="createButton" onClick="openForm('newInvoiceForm', '0')"><i class="fa-solid fa-plus"></i></button>
+
 <section>
     <h1>Invoices</h1>
 </section>
 
-<section>
-    <table class="invoices">
-        @foreach($tests as $test)
-        <tr>
-            <td style="width:45%">{{$test->board->location->hospital->name}} - {{$test->board->location->name}} - {{$test->board->name}} - {{$test->name}}</td>
-            @if($test->invoice === null)
-            <td>No Invoice added</td> 
-            <td colspan="2"><button onClick="openForm('newInvoiceForm', {{$test->id}})">Add now</button></td>        
-            @else 
-            <td>Number: {{$test->invoice->invoiceNo}}</td>
-            <td>Sent: {{date('d-M-Y', strtotime($test->invoice->sentDate))}}</td>
-                @if($test->invoice->paid === 0)
-                <td><button onClick="openForm('newPaidInvoiceForm', {{$test->invoice->id}})">Mark as Paid</button></td>
-                @elseif($test->invoice->paid === 1)
-                <td>Paid</td>
-                @endif
+<section class="invoiceDetails">
+    @foreach($invoices as $invoice)
+        <div>
+            <p><b>Invoice Number:</b> {{$invoice->invoiceNo}}</p>
+            <p><b>Sent Date:</b> {{date('j F Y, g:i a', strtotime($invoice->sentDate))}}</p>
+            @if($invoice->paid === 0)
+            <p style="margin-bottom:0;"><b>Paid:</b> Not Paid</p>
+            <button style="width:100%; margin:10px 0; color:white;" onClick="openForm('newPaidInvoiceForm', {{$invoice->id}})">Mark as Paid</button>
+            @elseif($invoice->paid === 1)
+            <p><b>Paid:</b> Paid</p>
             @endif
-        </tr>
-        @endforeach
-    </table>
+            <p>{{$invoice->details}}</p>
+        </div>
+    @endforeach
 </section>
 
 <div class="hiddenForm" id="newInvoiceForm" style="display:none;">
@@ -42,13 +38,14 @@
     <form action="{{ route('storeInvoice') }}" method="post" enctype="multipart/form-data">
         @include('includes.error')
 
-        <input type="text" name="test_id" id="test_id" class="foreign_id" style="display:none;">
-
         <label for="invoiceNo">Invoice Number:</label>
         <input type="text" name="invoiceNo" id="invoiceNo">
 
         <label for="sentDate">Date Sent:</label>
         <input type="datetime-local" name="sentDate" id="sentDate">
+
+        <label for="details">Details:</label>
+        <textarea name="details" id="details"></textarea>
 
         <input type="submit" value="Save">
     </form>

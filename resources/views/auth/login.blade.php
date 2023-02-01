@@ -4,6 +4,8 @@
 
 @section('content')
 
+<img src="{{url('/images/auth-logo.png')}}" alt="">
+
 <form method="POST" action="{{ route('login') }}">
     @include('includes.error')
 
