@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Register')
+
 @section('content')
 <section>
         <h1>Register New User</h1>
 </section>
-@if($user->type_id === 1)
 <section>
         <form method="POST" action="{{ route('register') }}">
                 @include('includes.error')
@@ -43,9 +44,4 @@
                 <input type="submit" value="Register" ></input>
         </form>
 </section>
-@else 
-<section>
-        <h2>Sorry you do not have access to this page</h2>
-</section>
-@endif
 @endsection
