@@ -2,6 +2,7 @@
 @import 'variables';
 @import 'fullcalendar';
 
+
 header {
     background-color: $blue;
     nav {
@@ -276,3 +277,4 @@ main {
         }
     }
 }
+@import 'responsive';

@@ -3,6 +3,7 @@
 @section('title', 'Register')
 
 @section('content')
+@if($user->type_id === 1)
 <section>
         <h1>Register New User</h1>
 </section>
@@ -44,4 +45,7 @@
                 <input type="submit" value="Register" ></input>
         </form>
 </section>
+@elseif
+<h1>Sorry you do not have access to this page</h1>
+@endif
 @endsection

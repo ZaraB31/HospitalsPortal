@@ -1,0 +1,44 @@
+@media only screen and (max-width:600px) {
+    header {
+        nav {
+            width:100%; 
+            margin: 0;  
+            justify-content: center; 
+            ul {
+                width: 90%;
+            }
+        }
+    }
+    main {
+        width: 80%;
+        .secondNav ul{
+            width: 80%;
+            margin-left: 10%;
+        }
+        .hiddenForm{
+            width: 70%;
+            left: 13%;
+        }
+        form input[type=submit] {
+            width: 60%;
+            margin-left: 20%;
+        }
+        .hospitalsDisplay {
+            div {
+                width: 80%;
+            }
+        }
+        .splitSection {
+            .halfSection {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:450px) {
+    main {
+        width: 90%;
+    }
+    
+}

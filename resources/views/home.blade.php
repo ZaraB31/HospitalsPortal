@@ -50,6 +50,9 @@
         <label for="name">Hospital Name:</label>
         <input type="text" name="name" id="name">
 
+        <label for="email">Contact Email:</label>
+        <input type="text" name="email" id="email">
+
         <input type="submit" value="Save">
     </form>
 </div>

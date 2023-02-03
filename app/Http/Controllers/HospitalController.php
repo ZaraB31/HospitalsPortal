@@ -24,12 +24,13 @@ class HospitalController extends Controller
     public function store(Request $request) {
         $this->validate($request, [
             'name' => ['required', 'unique:hospitals'],
+            'email' => ['required'],
         ]);
 
         $input = $request->all();
         Hospital::create($input);
 
-        return redirect('/Hospitals')->with('success', 'Location Created!');
+        return redirect('/Hospitals')->with('success', 'Hospital Created!');
     }
 
     public function main($id) {
