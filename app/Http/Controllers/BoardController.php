@@ -38,10 +38,7 @@ class BoardController extends Controller
     public function show($id) {
         $board = Board::findOrFail($id);
         $tests = Test::where('board_id', $id)->get();
-
-        foreach ($tests as $test) {
-            $downloads = Download::where('test_id', $test['id'])->get();
-        }
+        $downloads = Download::all();
         
         
         return view('hospitals/board', ['board' => $board,

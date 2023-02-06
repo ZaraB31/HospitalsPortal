@@ -15,6 +15,11 @@ use App\Mail\CompletedEvent;
 
 class ScheduleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index() {
         $events = [];
 
