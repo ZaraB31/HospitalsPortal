@@ -21,6 +21,10 @@ class Board extends Model
         return $this->hasOne(Test::class);
     }
 
+    public function oldTest() {
+        return $this->hasMany(Test::class);
+    }
+
     public function remedial() {
         return $this->belongsTo(Remedial::class);
     }

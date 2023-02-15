@@ -69,6 +69,7 @@
 <div class="hiddenForm" id="newDefectForm" style="display:none;">
     <h2>New Defect</h2>
     <i onClick="closeForm('newDefectForm')" class="fa-regular fa-circle-xmark"></i>
+    <p>When entering the price, please do not use a pound sign (£), and round the value to two decimal places.</p>
 
     <form action="{{ route('storeDefect') }}" method="post" enctype="multipart/form-data">
         @include('includes.error')

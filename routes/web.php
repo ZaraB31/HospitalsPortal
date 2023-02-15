@@ -18,7 +18,8 @@ Auth::routes();
 Route::get('/Hospitals', [App\Http\Controllers\HospitalController::class, 'index'])->name('displayHospitals');
 Route::post('/Hospitals/Create', [App\Http\Controllers\HospitalController::class, 'store'])->name('storeHospital');
 Route::get('/Hospitals/{id}/Main', [App\Http\Controllers\HospitalController::class, 'main'])->name('viewHospitalMain');
-Route::get('/Hospitals/{id}/Community', [App\Http\Controllers\HospitalController::class, 'community'])->name('viewHospitalCommunity');
+Route::get('/Hospitals/{id}/Main/OldTests', [App\Http\Controllers\OldTestController::class, 'oldMain'])->name('viewOldMain');
+Route::get('/Hospitals/{id}/Community/OldTests', [App\Http\Controllers\OldTestController::class, 'oldCommunity'])->name('viewOldCommunity');
 Route::get('/Hospitals/Tests', [App\Http\Controllers\TestController::class, 'index'])->name('displayTests');
 
 Route::post('/Hospitals/CreateLocation', [App\Http\Controllers\LocationController::class, 'store'])->name('storeLocation');
@@ -28,6 +29,8 @@ Route::get('/Hospitals/Boards/{id}', [App\Http\Controllers\BoardController::clas
 
 Route::post('/Hospitals/UploadTest', [App\Http\Controllers\TestController::class, 'store'])->name('storeTest');
 Route::get('/Hospitals/DownloadTest/{id}', [App\Http\Controllers\DownloadController::class, 'downloadTest'])->name('downloadTest');
+Route::post('/Hospitals/UploadOldTest', [App\Http\Controllers\OldTestController::class, 'store'])->name('storeOldTest');
+Route::get('/Hospitals/DownloadOldTest/{id}', [App\Http\Controllers\OldTestController::class, 'download'])->name('downloadOldTest');
 
 Route::get('/Hospitals/Admin', [App\Http\Controllers\AdminController::class, 'index'])->name('showAdmin');
 Route::post('/Hospitals/Admin/Prices', [App\Http\Controllers\PriceController::class, 'store'])->name('storeDefect');

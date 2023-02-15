@@ -14,6 +14,9 @@
         <p><b>Room:</b> {{$remedial->room}} <b style="margin-left:20px;">Circuit Number:</b> {{$remedial->circuitNo}}</p> 
         <p><b>Estimated Completion Date:</b> {{date('j F Y, g:i a', strtotime($remedial->created_at))}}</p>
         <p><b>Defect(s):</b> @foreach($remedialPrices as $defect) {{$defect->price->defect}},@endforeach</p>
+        @if($user->type_id === 1 OR $user->type_id === 3)
+        <p><b>Esitmated Price:</b> £{{$total}}</p>
+        @endif
         <textarea style="height:auto;" id="contentTextarea" class="description" readonly>{{$remedial->description}}</textarea>
     </article>
 

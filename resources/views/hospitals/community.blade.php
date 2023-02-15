@@ -24,6 +24,13 @@
     <h1>{{$hospital->name}} - Community</h1>
 </section>
 
+<section class="secondNav">
+    <ul>
+        <li style="text-decoration:underline;"><a href="/Hospitals/{{$hospital->id}}/Community">Current Test Results</a></li>
+        <li><a href="/Hospitals/{{$hospital->id}}/Community/OldTests">Previous Test Results</a></li>
+    </ul>
+</section>
+
 <section>
     <table>
         @if($locations->count() > 0)

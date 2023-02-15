@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Board;
 use App\Models\Download;
 use App\Models\Test;
+use App\Models\OldTest;
 
 class BoardController extends Controller
 {
@@ -37,11 +38,11 @@ class BoardController extends Controller
 
     public function show($id) {
         $board = Board::findOrFail($id);
-        $tests = Test::where('board_id', $id)->get();
         $downloads = Download::all();
-        
+        $oldTests = OldTest::where('board_id', $id)->get();
         
         return view('hospitals/board', ['board' => $board,
-                                        'downloads' => $downloads]);
+                                        'downloads' => $downloads,
+                                        'oldTests' => $oldTests]);
     }
 }

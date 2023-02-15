@@ -26,6 +26,6 @@ class DownloadController extends Controller
         $file = $test['file'];
         $filePath = public_path('/tests/'.$file);
 
-        return redirect()->route('showBoard', $boardID)->Response()->download($filePath);
+        return Response()->download($filePath);
     }
 }

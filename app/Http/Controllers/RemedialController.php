@@ -89,10 +89,24 @@ class RemedialController extends Controller
         $remedial = Remedial::findOrFail($id);
         $remedialImages = RemedialPhoto::where('remedial_id', $id)->get();
         $remedialPrices = RemedialPrice::where('remedial_id', $id)->get();
+        $prices = Price::all();
+        $total = 0;
+        $user =Auth()->user();
+
+        foreach($prices as $price) {
+            foreach($remedialPrices as $remedialPrice) {
+                if($price->id === $remedialPrice->price_id) {
+                    $total += $price->price;
+                }
+            }
+        }
+        $total = ($total / 100) * 120;
 
         return view('remedials/show', ['remedial' => $remedial,
                                        'remedialImages' => $remedialImages,
-                                       'remedialPrices' => $remedialPrices]);
+                                       'remedialPrices' => $remedialPrices,
+                                       'total' => $total,
+                                       'user' => $user]);
     }
 
     public function approve(Request $request) {

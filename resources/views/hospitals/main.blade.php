@@ -24,6 +24,12 @@
     <h1>{{$hospital->name}} - Main</h1>
 </section>
 
+<section class="secondNav">
+    <ul>
+        <li style="text-decoration:underline;"><a href="/Hospitals/{{$hospital->id}}/Main">Current Test Results</a></li>
+        <li><a href="/Hospitals/{{$hospital->id}}/Main/OldTests">Previous Test Results</a></li>
+    </ul>
+</section>
 
 <section>
     <table>

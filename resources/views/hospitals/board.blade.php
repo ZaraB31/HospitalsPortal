@@ -30,6 +30,16 @@
             <tr><td>Download file: <a href="/Hospitals/DownloadTest/{{$board->test->id}}">{{$board->test->file}} <i class="fa-solid fa-download"></i></a></td></tr>
             @endif
         </table>
+        <table>
+            <tr><th>Previous Tests</th></tr>
+            @if($board->oldTests === 0)
+            <tr><td>No previous tests uploaded</td></tr>
+            @else
+            @foreach($oldTests as $oldTest)
+            <tr><td><a href="/Hospitals/DownloadOldTest/{{$oldTest->id}}">{{$oldTest->file}} <i class="fa-solid fa-download"></i></a></td></tr>
+            @endforeach
+            @endif
+        </table>
     </article>
     <article class="halfSection">
         <table>
