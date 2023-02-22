@@ -12,6 +12,10 @@
     <a href="/Hospitals"><i class="fa-solid fa-arrow-left"></i> Back</a>
 </section>
 
+<section>
+    <h1>{{$hospital->name}} - Main</h1>
+</section>
+
 @if (\Session::has('success'))
     <div class="messageSent">
         <ul>
@@ -19,10 +23,6 @@
         </ul>
     </div>
 @endif
-
-<section>
-    <h1>{{$hospital->name}} - Main</h1>
-</section>
 
 <section class="secondNav">
     <ul>

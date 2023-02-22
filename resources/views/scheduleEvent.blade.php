@@ -30,13 +30,7 @@
 @if($user->type_id === 1)
     <button class="createButton" onClick="openForm('newScheduleForm', '0')"><i class="fa-solid fa-plus"></i></button>
 @endif
-
-<article class="splitSection">
-    <section style="width:60%;">
-        <div id="calendar"></div>
-    </section>
-
-    <section class="eventDetails" style="width:30%;">
+    <section class="eventDetails">
         <h2 style="max-width:90%;">{{$event->location->name}}</h2>
         <a href="/Schedule"><i class="fa-regular fa-circle-xmark"></i></a>
         <p><b>Hospital:</b> {{$event->location->hospital->name}}</p>
@@ -59,7 +53,10 @@
             @endif
         @endif
     </section>
-</article>
+    
+    <section class="calendar">
+        <div id="calendar"></div>
+    </section>
 
 <div class="hiddenForm" id="newScheduleForm" style="display:none;">
     <h2>Add New Event</h2>

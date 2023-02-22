@@ -45,7 +45,8 @@
                 <input type="submit" value="Register" ></input>
         </form>
 </section>
-@elseif
+@else
 <h1>Sorry you do not have access to this page</h1>
 @endif
+
 @endsection

@@ -18,6 +18,7 @@ Auth::routes();
 Route::get('/Hospitals', [App\Http\Controllers\HospitalController::class, 'index'])->name('displayHospitals');
 Route::post('/Hospitals/Create', [App\Http\Controllers\HospitalController::class, 'store'])->name('storeHospital');
 Route::get('/Hospitals/{id}/Main', [App\Http\Controllers\HospitalController::class, 'main'])->name('viewHospitalMain');
+Route::get('/Hospitals/{id}/Community', [App\Http\Controllers\HospitalController::class, 'community'])->name('viewHospitalCommunity');
 Route::get('/Hospitals/{id}/Main/OldTests', [App\Http\Controllers\OldTestController::class, 'oldMain'])->name('viewOldMain');
 Route::get('/Hospitals/{id}/Community/OldTests', [App\Http\Controllers\OldTestController::class, 'oldCommunity'])->name('viewOldCommunity');
 Route::get('/Hospitals/Tests', [App\Http\Controllers\TestController::class, 'index'])->name('displayTests');

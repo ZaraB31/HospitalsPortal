@@ -7,6 +7,7 @@ use Auth;
 use App\Models\Hospital;
 use App\Models\Location;
 use App\Models\Board;
+use App\Models\Company;
 
 class HospitalController extends Controller
 {
@@ -30,6 +31,8 @@ class HospitalController extends Controller
         $input = $request->all();
         Hospital::create($input);
 
+        Company::create(['company' => $request['name']]);
+
         return redirect('/Hospitals')->with('success', 'Hospital Created!');
     }
 
@@ -40,6 +43,15 @@ class HospitalController extends Controller
         $boards = Board::all();
         $locationBoards = [];
         
+        if($user->type_id === 3) {
+            $userCompany = Company::find($user['company_id']);
+            $userHospital = Hospital::where('name', $userCompany->company)->first();
+
+            if($userHospital->id !== $hospital->id) {
+                return redirect()->route('displayHospitals')->with('failure', "Sorry, you do not have access to this hospital's data");
+            }
+        }
+
         foreach($locations as $location) {
             foreach($boards as $board) {
                 if($board['location_id'] === $location['id']) {
@@ -60,6 +72,17 @@ class HospitalController extends Controller
         $locations = Location::all()->where('hospital_id', $id)->where('type', 'community');
         $boards = Board::all();
         $locationBoards = [];
+
+
+        if($user->type_id === 3) {
+            $userCompany = Company::find($user['company_id']);
+            $userHospital = Hospital::where('name', $userCompany->company)->first();
+
+            if($userHospital->id !== $hospital->id) {
+                return redirect()->route('displayHospitals')->with('failure', "Sorry, you do not have access to this hospital's data");
+            }
+        }
+        
         
         foreach($locations as $location) {
             foreach($boards as $board) {

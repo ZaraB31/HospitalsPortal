@@ -129,7 +129,7 @@ tr {
     padding: 6px;
     margin-bottom: 20px;
 }
-.messageSent {
+.messageSent, .noAccess {
     background-color: #1FC01D;
     width: 50%;
     margin: auto;
@@ -140,6 +140,10 @@ tr {
             padding: 10px;
         }
     }
+}
+.noAccess {
+    background-color: red;
+    color: white;
 }
 button:hover, a:hover {
     cursor: pointer;

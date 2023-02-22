@@ -137,17 +137,22 @@ tr form input[type=submit] {
   margin-bottom: 20px;
 }
 
-.messageSent {
+.messageSent, .noAccess {
   background-color: #1FC01D;
   width: 50%;
   margin: auto;
   text-align: center;
 }
-.messageSent ul {
+.messageSent ul, .noAccess ul {
   padding: 0;
 }
-.messageSent ul li {
+.messageSent ul li, .noAccess ul li {
   padding: 10px;
+}
+
+.noAccess {
+  background-color: red;
+  color: white;
 }
 
 button:hover, a:hover {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Location;
 use App\Models\Hospital;
+use App\Models\Company;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -21,12 +22,17 @@ class ScheduleController extends Controller
     }
     
     public function index() {
+        $user = Auth()->user();
+        $userCompany = Company::find($user['company_id']);
+        $userHospital = Hospital::where('name', $userCompany->company)->first();
+
         $events = [];
 
         $appointments = Schedule::all();
 
         foreach($appointments as $appointment) {
             $location = Location::find($appointment['location_id']);
+            $hospital = Hospital::find($location['hospital_id']);
             $today = Carbon::now();
             $id = strval($appointment['id']);
             $url = 'http://localhost:8000/Schedule/'.$id;
@@ -44,14 +50,26 @@ class ScheduleController extends Controller
                 $colour = '#1FC01D';
             }
 
-            $events[] = [
-                'title' => $location['name'],
-                'start' => $appointment['start'],
-                'end' => $appointment['end'],
-                'url' => $url,
-                'backgroundColor' => $colour,
-                'borderColor' => $colour,
-            ];
+            if($user->type_id === 1 or $user->type_id === 2) {
+                $events[] = [
+                    'title' => $location['name'],
+                    'start' => $appointment['start'],
+                    'end' => $appointment['end'],
+                    'url' => $url,
+                    'backgroundColor' => $colour,
+                    'borderColor' => $colour,
+                ];
+            } else if($user->type_id === 3 and $userHospital->id === $hospital->id){
+                $events[] = [
+                    'title' => $location['name'],
+                    'start' => $appointment['start'],
+                    'end' => $appointment['end'],
+                    'url' => $url,
+                    'backgroundColor' => $colour,
+                    'borderColor' => $colour,
+                ];
+            }
+            
         }
 
         $user = Auth()->User();
@@ -65,6 +83,9 @@ class ScheduleController extends Controller
     }
 
     public function show($id) {
+        $user = Auth()->user();
+        $userCompany = Company::find($user['company_id']);
+        $userHospital = Hospital::where('name', $userCompany->company)->first();
 
         $events = [];
 
@@ -72,6 +93,7 @@ class ScheduleController extends Controller
 
         foreach($appointments as $appointment) {
             $location = Location::find($appointment['location_id']);
+            $hospital = Hospital::find($location['hospital_id']);
             $today = Carbon::now();
             $appointmentID = strval($appointment['id']);
             $url = 'http://localhost:8000/Schedule/'.$appointmentID;
@@ -89,14 +111,25 @@ class ScheduleController extends Controller
                 $colour = '#1FC01D';
             }
 
-            $events[] = [
-                'title' => $location['name'],
-                'start' => $appointment['start'],
-                'end' => $appointment['end'],
-                'url' => $url,
-                'backgroundColor' => $colour,
-                'borderColor' => $colour,
-            ];
+            if($user->type_id === 1 or $user->type_id === 2) {
+                $events[] = [
+                    'title' => $location['name'],
+                    'start' => $appointment['start'],
+                    'end' => $appointment['end'],
+                    'url' => $url,
+                    'backgroundColor' => $colour,
+                    'borderColor' => $colour,
+                ];
+            } else if($user->type_id === 3 and $userHospital->id === $hospital->id){
+                $events[] = [
+                    'title' => $location['name'],
+                    'start' => $appointment['start'],
+                    'end' => $appointment['end'],
+                    'url' => $url,
+                    'backgroundColor' => $colour,
+                    'borderColor' => $colour,
+                ];
+            }
         }
 
         $event = Schedule::findOrFail($id);

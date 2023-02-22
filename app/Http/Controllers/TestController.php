@@ -7,6 +7,8 @@ use App\Models\Test;
 use App\Models\Board;
 use App\Models\Location;
 use App\Models\Hospital;
+use App\Models\Company;
+use Auth;
 use Validator;
 use File;
 use Illuminate\Support\Facades\Mail;
@@ -21,7 +23,24 @@ class TestController extends Controller
     }
 
     public function index() {
-        $tests = Test::all()->sortByDesc('created_at');
+        $user = Auth()->user();
+        $allTests = Test::all();
+        $tests = [];
+
+        if($user->type_id === 1 OR $user->type_id === 2) {
+            $tests = Test::all()->sortByDesc('created_at');
+        } else if ($user->type_id === 3) {
+            $userCompany = Company::find($user['company_id']);
+            $userHospital = Hospital::where('name', $userCompany->company)->first();
+            foreach($allTests as $allTest) {
+                $board = Board::find($allTest['board_id']);
+                $location = Location::find($board['location_id']);
+                $hospital = Hospital::find($location['hospital_id']);
+                if($hospital->id === $userHospital->id) {
+                    array_push($tests, $allTest);
+                }
+            }
+        }
 
         return view('hospitals/testsIndex', ['tests' => $tests]);
     }
@@ -51,7 +70,7 @@ class TestController extends Controller
                               'result' => $request['result']]);
 
         Mail::to($hospital['email'])->send(new NewTest($test));
-        Mail::to('accounts@mega-electrical.co.uk')->send(new AccountsNewTest($test));
+        //Mail::to('accounts@mega-electrical.co.uk')->send(new AccountsNewTest($test));
 
         if($location->type === 'main') {
             return redirect()->route('viewHospitalMain', $hospital->id)->with('success', 'Test Uploaded!');

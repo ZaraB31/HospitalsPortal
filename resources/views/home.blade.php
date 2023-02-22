@@ -16,6 +16,14 @@
     </div>
 @endif
 
+@if (\Session::has('failure'))
+    <div class="noAccess">
+        <ul>
+            <li>{!! \Session::get('failure') !!}</li>
+        </ul>
+    </div>
+@endif
+
 <section>
     <h1>Hello {{$user->name}}</h1>
 </section>

@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\Hospital;
 use App\Models\Price;
 use App\Models\User;
+use App\Models\Company;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewRemedial;
@@ -26,7 +27,23 @@ class RemedialController extends Controller
 
     public function index() {
         $user = Auth()->user();
-        $remedials = Remedial::all()->sortByDesc('created_at');
+        $allRemedials = Remedial::all();
+        $remedials = [];
+
+        if($user->type_id === 1 OR $user->type_id === 2) {
+            $remedials = Remedial::all()->sortByDesc('created_at');
+        } else if ($user->type_id === 3) {
+            $userCompany = Company::find($user['company_id']);
+            $userHospital = Hospital::where('name', $userCompany->company)->first();
+            foreach($allRemedials as $allRemedial) {
+                $board = Board::find($allRemedial['board_id']);
+                $location = Location::find($board['location_id']);
+                $hospital = Hospital::find($location['hospital_id']);
+                if($hospital->id === $userHospital->id) {
+                    array_push($remedials, $allRemedial);
+                }
+            }
+        }
 
         return view('remedials/index', ['user' => $user,
                                         'remedials' => $remedials]);
