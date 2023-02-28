@@ -51,3 +51,4 @@ Route::post('/Schedule', [App\Http\Controllers\ScheduleController::class, 'store
 Route::get('/Schedule/{id}', [App\Http\Controllers\ScheduleController::class, 'show'])->name('showEvent');
 Route::post('/Schedule/approve', [App\Http\Controllers\ScheduleController::class, 'approve'])->name('approveSchedule');
 Route::post('/Schedule/complete', [App\Http\Controllers\ScheduleController::class, 'complete'])->name('completeSchedule');
+Route::post('/Schedule/notes', [App\Http\Controllers\ScheduleController::class, 'notes'])->name('addScheduleNote');

@@ -296,7 +296,7 @@ main .hiddenForm {
   background-color: #ACB2BA;
   position: fixed;
   left: 25%;
-  top: 20%;
+  top: 10%;
   width: 50%;
   padding: 10px 20px;
   display: flex;
@@ -426,7 +426,12 @@ main .createForm .checkbox input[type=checkbox] {
   width: -moz-min-content;
   width: min-content;
 }
-main .eventDetails {
+main .eventShow {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+main .eventShow .eventDetails, main .eventShow .eventNotes {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -436,14 +441,23 @@ main .eventDetails {
   padding: 2%;
   width: 270px;
 }
-main .eventDetails p {
+main .eventShow .eventDetails p, main .eventShow .eventNotes p {
   width: 100%;
   margin-bottom: 0;
 }
-main .eventDetails button {
+main .eventShow .eventDetails button, main .eventShow .eventNotes button {
   margin-top: 10px;
   width: 100%;
   color: white;
+}
+main .eventShow .eventNotes {
+  width: 540px;
+}
+main .eventShow .eventNotes textarea {
+  width: 100%;
+  resize: none;
+  background-color: #ACB2BA;
+  border: none;
 }
 main .invoiceDetails {
   display: flex;

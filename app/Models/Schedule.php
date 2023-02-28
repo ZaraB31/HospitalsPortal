@@ -10,10 +10,10 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'location_id', 'start', 'end', 'approved', 'completed',
+        'location_id', 'start', 'end', 'hours', 'notes', 'approved', 'completed',
     ];
 
-    public function Location() {
+    public function location() {
         return $this->belongsTo(Location::class);
     }
 }

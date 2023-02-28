@@ -9,9 +9,12 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             themeSystem : "standard",
             initialView: 'dayGridMonth',
+            hiddenDays: [0, 6],
+            displayEventTime: false,
             events: @json($events),
             eventDisplay: 'block',
             height: 'auto',
+            initialDate: @json($eventDate),
             eventClick: function(event) {
                 if (event.url) {
                     window.open(event.url, "_blank");
@@ -23,6 +26,13 @@
     });
 </script>
 
+<script>
+     document.addEventListener('DOMContentLoaded', function () {
+        var x = document.getElementById("contentTextarea");
+        x.style.height = x.scrollHeight + "px";
+    });  
+</script>
+
 <section>
     <h1>Schedule</h1>
 </section>
@@ -30,12 +40,14 @@
 @if($user->type_id === 1)
     <button class="createButton" onClick="openForm('newScheduleForm', '0')"><i class="fa-solid fa-plus"></i></button>
 @endif
+<section class="eventShow">
     <section class="eventDetails">
         <h2 style="max-width:90%;">{{$event->location->name}}</h2>
         <a href="/Schedule"><i class="fa-regular fa-circle-xmark"></i></a>
         <p><b>Hospital:</b> {{$event->location->hospital->name}}</p>
-        <p><b>Start:</b> {{date('j F Y, g:i a', strtotime($event->start))}}</p>
-        <p><b>End:</b> {{date('j F Y, g:i a', strtotime($event->end))}}</p>
+        <p><b>Start:</b> {{date('j F Y', strtotime($event->start))}}</p>
+        <p><b>End:</b> {{date('j F Y', strtotime($event->end))}}</p>
+        <p><b>Working Hours:</b> {{$event->hours}}</p>
         @if($event->approved === 0)
         <p><b>Approval:</b> Not Approved</p>
             @if($user->type_id === 3)
@@ -53,10 +65,22 @@
             @endif
         @endif
     </section>
-    
-    <section class="calendar">
-        <div id="calendar"></div>
+
+    <section class="eventNotes">
+        <h2>Notes</h2>
+        @if($event->notes === "")
+        <textarea readonly>No notes added.</textarea>
+        <button onClick="openForm('addScheduleNoteForm', {{$event->id}})">Add Notes</button>
+        @else
+        <textarea id="contentTextarea" readonly>{{$event->notes}}</textarea>
+        @endif
     </section>
+</section>
+    
+    
+<section class="calendar">
+    <div id="calendar"></div>
+</section>
 
 <div class="hiddenForm" id="newScheduleForm" style="display:none;">
     <h2>Add New Event</h2>
@@ -80,10 +104,20 @@
         </select>
 
         <label for="start">Start Date and Time:</label>
-        <input type="datetime-local" name="start" id="start">
+        <input type="date" name="start" id="start">
 
         <label for="end">End Date and Time:</label>
-        <input type="datetime-local" name="end" id="end">
+        <input type="date" name="end" id="end">
+
+        <label for="hours">Working Hours:</label>
+        <select name="hours" id="hours">
+            <option value="">Select...</option>
+            <option value="Days">Day Work</option>
+            <option value="Nights">Night Work</option>
+        </select>
+
+        <label for="notes">Notes:</label>
+        <textarea name="notes" id="notes"></textarea>
 
         <input type="submit" value="Save">
     </form>
@@ -117,6 +151,22 @@
         <input type="text" name="schedule_id" id="schedule_id" class="foreign_id" style="display:none;">
 
         <input style="width:70%; margin-left:15%;" type="submit" value="Mark as Completed">
+    </form>
+</div>
+
+<div class="hiddenForm" id="addScheduleNoteForm" style="display:none;">
+    <h2>Add Notes</h2>
+    <i onClick="closeForm('addScheduleNoteForm')" class="fa-regular fa-circle-xmark"></i>
+
+    <form action="{{ route('addScheduleNote') }}" method="post">
+        @include('includes.error')
+
+        <input type="text" name="schedule_id" id="schedule_id" class="foreign_id" style="display:none;">
+
+        <label for="notes">Note:</label>
+        <textarea name="notes" id="notes"></textarea>
+
+        <input style="width:70%; margin-left:15%;" type="submit" value="Add Note">
     </form>
 </div>
 

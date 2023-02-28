@@ -9,6 +9,9 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             themeSystem : "standard",
             initialView: 'dayGridMonth',
+            hiddenDays: [0, 6],
+            nextDayThreshold: "00:00:00",
+            displayEventTime: false,
             events: @json($events),
             eventDisplay: 'block',
             eventClick: function(event) {
@@ -56,10 +59,20 @@
         </select>
 
         <label for="start">Start Date and Time:</label>
-        <input type="datetime-local" name="start" id="start">
+        <input type="date" name="start" id="start">
 
         <label for="end">End Date and Time:</label>
-        <input type="datetime-local" name="end" id="end">
+        <input type="date" name="end" id="end">
+
+        <label for="hours">Working Hours:</label>
+        <select name="hours" id="hours">
+            <option value="">Select...</option>
+            <option value="Days">Day Work</option>
+            <option value="Nights">Night Work</option>
+        </select>
+
+        <label for="notes">Notes:</label>
+        <textarea name="notes" id="notes"></textarea>
 
         <input type="submit" value="Save">
     </form>

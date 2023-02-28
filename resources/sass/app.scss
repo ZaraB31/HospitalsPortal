@@ -101,7 +101,7 @@ main {
         background-color: $grey;
         position: fixed;
         left: 25%;
-        top: 20%;
+        top: 10%;
         width: 50%;
         padding: 10px 20px;
         display: flex;
@@ -239,24 +239,39 @@ main {
             }
         }
     }
-    .eventDetails {
+    .eventShow {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        background-color: $grey;
-        height: max-content;
-        padding: 2%;
-        width: 270px;
-        p {
-            width: 100%;
-            margin-bottom: 0;
+        .eventDetails, .eventNotes{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background-color: $grey;
+            height: max-content;
+            padding: 2%;
+            width: 270px;
+            p {
+                width: 100%;
+                margin-bottom: 0;
+            }
+            button {
+                margin-top: 10px;
+                width: 100%;
+                color: white;
+            }
         }
-        button {
-            margin-top: 10px;
-            width: 100%;
-            color: white;
+        .eventNotes {
+            width: 540px;
+            textarea {
+                width: 100%;
+                resize: none;
+                background-color: $grey;
+                border: none;
+            }
         }
     }
+    
     .invoiceDetails {
         display: flex;
         justify-content: space-between;

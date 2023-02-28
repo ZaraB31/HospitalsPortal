@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->string('hours');
             $table->boolean('approved');
             $table->boolean('completed');
             $table->timestamps();

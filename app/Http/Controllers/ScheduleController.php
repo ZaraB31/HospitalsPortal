@@ -137,9 +137,13 @@ class ScheduleController extends Controller
         $locations = Location::all()->sortBy('name');
         $hospitals = Hospital::all()->sortBy('name');
 
+        $eventDate = date_create($event['start']);
+        $eventDate = date_format($eventDate, 'Y-m-d');
+       
         return view('scheduleEvent', ['events' => $events,
                                       'event' => $event,
                                       'user' => $user,
+                                      'eventDate' => $eventDate,
                                       'locations' => $locations,
                                       'hospitals' => $hospitals]);
     }
@@ -148,15 +152,21 @@ class ScheduleController extends Controller
         $this->validate($request, [
             'location_id' => ['required'],
             'start' => ['required', 'date', 'after_or_equal:today'],
-            'end' => ['required', 'date', 'after:start'],
+            'end' => ['required', 'date', 'after_or_equal:start'],
+            'hours' => ['required'],
         ]);
+
+        $endTime = date_create($request['end']);
+        $end = date_modify($endTime, "+5 minutes");
 
         $location = Location::find($request['location_id']);
         $hospital = Hospital::find($location['hospital_id']);
 
         $event = Schedule::create(['location_id' => $request['location_id'],
                                    'start' => $request['start'],
-                                   'end' => $request['end'],
+                                   'end' => $end,
+                                   'hours' => $request['hours'],
+                                   'notes' => $request['notes'],
                                    'approved' => 0,
                                    'completed' => 0]);
 
