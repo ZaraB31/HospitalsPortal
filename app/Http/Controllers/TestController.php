@@ -26,6 +26,7 @@ class TestController extends Controller
         $user = Auth()->user();
         $allTests = Test::all();
         $tests = [];
+        $hospitals = Hospital::all();
 
         if($user->type_id === 1 OR $user->type_id === 2) {
             $tests = Test::all()->sortByDesc('created_at');
@@ -42,7 +43,31 @@ class TestController extends Controller
             }
         }
 
-        return view('hospitals/testsIndex', ['tests' => $tests]);
+        return view('hospitals/testsIndex', ['tests' => $tests,
+                                             'hospitals' => $hospitals,
+                                             'user' => $user]);
+    }
+
+    public function hospitals($id) {
+        $user = Auth()->user();
+        $allTests = Test::all();
+        $hospitals = Hospital::all();
+        $hospital = Hospital::findOrFail($id);
+        $tests = [];
+
+        foreach ($allTests as $allTest) {
+            $board = Board::find($allTest['board_id']);
+            $location = Location::find($board['location_id']);
+            $hospitalID = Hospital::find($location['hospital_id']);
+            if($hospital->id === $hospitalID->id) {
+                array_push($tests, $allTest);
+            }
+        }
+
+        return view('hospitals/testsHospitals', ['tests' => $tests,
+                                                 'hospital' => $hospital,
+                                                 'hospitals' => $hospitals,
+                                                 'user' => $user]);
     }
     
     public function store(Request $request) {

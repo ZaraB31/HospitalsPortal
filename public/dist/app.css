@@ -479,6 +479,13 @@ main .invoiceDetails div textarea {
   height: 150px;
   background-color: #ACB2BA;
 }
+main .indexButtons {
+  display: flex;
+  justify-content: right;
+}
+main .indexButtons button {
+  padding: 12px;
+}
 
 @media only screen and (max-width: 600px) {
   header nav {

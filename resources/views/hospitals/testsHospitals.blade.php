@@ -8,7 +8,7 @@
 </section>
 
 <section>
-    <h1>Recent Test Results</h1>
+    <h1>Recent Test Results - {{$hospital->name}}</h1>
 </section>
 
 @if($user->type_id === 1 OR $user->type_id === 2)

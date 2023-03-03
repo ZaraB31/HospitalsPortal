@@ -22,6 +22,7 @@ Route::get('/Hospitals/{id}/Community', [App\Http\Controllers\HospitalController
 Route::get('/Hospitals/{id}/Main/OldTests', [App\Http\Controllers\OldTestController::class, 'oldMain'])->name('viewOldMain');
 Route::get('/Hospitals/{id}/Community/OldTests', [App\Http\Controllers\OldTestController::class, 'oldCommunity'])->name('viewOldCommunity');
 Route::get('/Hospitals/Tests', [App\Http\Controllers\TestController::class, 'index'])->name('displayTests');
+Route::get('/Hospitals/Tests/{id}', [App\Http\Controllers\TestController::class, 'hospitals'])->name('displayHospitalTests');
 
 Route::post('/Hospitals/CreateLocation', [App\Http\Controllers\LocationController::class, 'store'])->name('storeLocation');
 

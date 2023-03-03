@@ -292,5 +292,12 @@ main {
             }
         }
     }
+    .indexButtons {
+        display: flex;
+        justify-content: right;
+        button {
+            padding: 12px;
+        }
+    }
 }
 @import 'responsive';
