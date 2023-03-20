@@ -10,7 +10,7 @@
     <div>
         <h2>Approved Event</h2>
         <p>An event has been approved by the hospital.</p>
-        <a href="http://localhost:8000/Schedule/{{ $schedule->id }}">Review it now.</a>
+        <a href="https://megaelectrical-hospitalstesting.co.uk/Schedule/{{ $schedule->id }}">Review it now.</a>
     </div>
 </body>
 </html>

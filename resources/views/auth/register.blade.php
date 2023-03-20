@@ -3,13 +3,24 @@
 @section('title', 'Register')
 
 @section('content')
-@if($user->type_id === 1)
+@if($user->type_id === 1 OR $user->type_id === 4)
 <section>
         <h1>Register New User</h1>
 </section>
 <section>
         <form method="POST" action="{{ route('register') }}">
-                @include('includes.error')
+                @csrf
+
+                @if ($errors->any())
+                <div class="error" id="errorAlert" style="display:block;">
+                        <ul>
+                        @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                </div>
+                @endif
+
 
                 <label for="name" >Name</label>
                 <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>

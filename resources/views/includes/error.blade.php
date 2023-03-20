@@ -3,7 +3,7 @@
 @if ($errors->any())
     <div class="error" id="errorAlert" style="display:block;">
         <ul>
-            @foreach ($errors->all() as $error)
+            @foreach ($errors->$form->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>

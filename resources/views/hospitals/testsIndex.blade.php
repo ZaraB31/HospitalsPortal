@@ -11,7 +11,7 @@
     <h1>Recent Test Results</h1>
 </section>
 
-@if($user->type_id === 1 OR $user->type_id === 2)
+@if($user->type_id === 1 OR $user->type_id === 4 OR $user->type_id === 2)
 <section class="indexButtons">
     <button><a href="/Hospitals/Tests">All</a></button>
     @foreach($hospitals as $hospital)

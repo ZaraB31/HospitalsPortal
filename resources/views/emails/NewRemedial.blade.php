@@ -10,7 +10,7 @@
     <div>
         <h2>New Remedial Request</h2>
         <p>A new remeidal works request has been raised.</p>
-        <a href="http://localhost:8000/Hospitals/Board/Remedials/{{ $remedial->id }}">View Now</a>
+        <a href="https://megaelectrical-hospitalstesting.co.uk/Hospitals/Board/Remedials/{{ $remedial->id }}">View Now</a>
     </div>
 </body>
 </html>

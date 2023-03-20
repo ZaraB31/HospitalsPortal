@@ -8,6 +8,8 @@ use App\Models\Location;
 use App\Models\Board;
 use App\Models\OldTest;
 
+use Validator;
+
 class OldTestController extends Controller
 {
     public function oldMain($id) {
@@ -53,10 +55,10 @@ class OldTestController extends Controller
     }
 
     public function store(Request $request) {
-        $this->validate($request, [
+        Validator::make($request->all(), [
             'name' => ['required'],
             'file' => ['required','file', 'mimes:pdf'],
-        ]);
+        ])->validateWithBag('oldTest');
 
         $test = $request->file('file');
         $testName = date('Y-m-d').'-'.$request['name'].'.'.$test->getClientOriginalExtension();
@@ -64,19 +66,12 @@ class OldTestController extends Controller
         $test->move($target_path, $testName);
 
         $id = $request['board_id'];
-        $board = Board::find($id);
-        $location = Location::find($board->location_id);
-        $hospital = Hospital::find($location->hospital_id);
         
         $test = OldTest::create(['name' => $request['name'],
                               'file' => $testName,
                               'board_id' => $request['board_id']]);
 
-        if($location->type === 'main') {
-            return redirect()->route('viewOldMain', $hospital->id)->with('success', 'Test Uploaded!');
-        } else if ($location->type === 'community') {
-            return redirect()->route('viewOldCommunity', $hospital->id)->with('success', 'Test Uploaded!');
-        }
+        return redirect()->route('showBoard', $id)->with('success', 'Test Uploaded!');
     }
 
     public function download($id) {

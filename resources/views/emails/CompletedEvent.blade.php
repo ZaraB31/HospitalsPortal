@@ -10,7 +10,7 @@
     <div>
         <h2>Completed Location</h2>
         <p>A location has been marked as completed.</p>
-        <a href="http://localhost:8000/Schedule/{{ $schedule->id }}">Review it now.</a>
+        <a href="https://megaelectrical-hospitalstesting.co.uk/Schedule/{{ $schedule->id }}">Review it now.</a>
     </div>
 </body>
 </html>

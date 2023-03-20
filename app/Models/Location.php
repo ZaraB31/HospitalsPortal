@@ -28,4 +28,8 @@ class Location extends Model
     public function schedule() {
         return $this->hasMany(Schedule::class);
     }
+
+    public function drawing() {
+        return $this->hasMany(Drawing::class);
+    }
 }

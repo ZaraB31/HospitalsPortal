@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use Auth;
 
+use Validator;
+
 class InvoiceController extends Controller
 {
     public function __construct()
@@ -22,10 +24,10 @@ class InvoiceController extends Controller
     }
 
     public function store(Request $request) {
-        $this->validate($request, [
+        Validator::make($request->all(), [
             'invoiceNo' => ['required'],
             'sentDate' => ['required', 'date'],
-        ]);
+        ])->validateWithBag('newInvoice');
 
         Invoice::create(['invoiceNo' => $request['invoiceNo'],
                          'sentDate' => $request['sentDate'],

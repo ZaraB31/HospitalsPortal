@@ -4,7 +4,7 @@
 
 @section('content')
 
-@if($user->type_id === 1)
+@if($user->type_id === 1 OR $user->type_id === 4)
     <button class="createButton" onClick="openForm('newLocationForm', '{{$hospital->id}}')"><i class="fa-solid fa-plus"></i></button>
 @endif
 
@@ -24,54 +24,35 @@
     </div>
 @endif
 
-<section class="secondNav">
-    <ul>
-        <li style="text-decoration:underline;"><a href="/Hospitals/{{$hospital->id}}/Main">Current Test Results</a></li>
-        <li><a href="/Hospitals/{{$hospital->id}}/Main/OldTests">Previous Test Results</a></li>
-    </ul>
-</section>
+@if (\Session::has('delete'))
+    <div class="noAccess">
+        <ul>
+            <li>{!! \Session::get('delete') !!}</li>
+        </ul>
+    </div>
+@endif
 
 <section>
     <table>
+        <tr>
+            <th colspan="3">Locations</th>
+        </tr>
         @if($locations->count() > 0)
             @foreach($locations as $location)
-                <tr>
-                    <th>{{$location->name}}</th>
-                    <th colspan="2" style="text-align:right;">
-                        @if($user->type_id === 1 OR $user->type_id === 2)
-                        <button onClick="openForm('newBoardForm', '{{$location->id}}')">Add DB</button>
-                        @endif
-                    </th>
-                </tr>
-
-                @foreach($locationBoards as $board)
-                    @if($board->location_id === $location->id)
-                        <tr>
-                            <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}} <i class="fa-solid fa-arrow-right"></i></a></td>
-                            @if($board->test === null)
-                                <td colspan="2">
-                                    No Test Uploaded
-                                    @if($user->type_id === 1 OR $user->type_id === 2)
-                                        <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
-                                    @endif
-                                </td>
-                            @else
-                                @if($board->test->result === "Satisfactory")
-                                        <td style="background-color: #1FC01D;">Circuits: {{$board->test->circuits}}</td>
-                                        <td colspan="2" style="background-color: #1FC01D;">{{$board->test->result}}</td>
-                                @elseif($board->test->result === "Unsatisfactory")
-                                    <td style="background-color: #C01D1F; color:white;">Circuits: {{$board->test->circuits}}</td>
-                                    <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
-                                @endif
-                            @endif
-                        </tr>
-                    @endif
-                @endforeach
+            <tr>
+                <td><a href="/Hospitals/Location/{{$location->id}}">{{$location->name}}  <i class="fa-solid fa-arrow-right"></i></a></td>
+                @if($location->hospital->name === 'Ysbyty Gwynedd')
+                <td>{{count($locationBoards)}} Board(s)</td>
+                <td>{{count($locationDrawings)}} Drawing(s)</td>
+                @else
+                <td colspan="2">{{count($locationBoards)}} Board(s)</td>
+                @endif
+            </tr>
             @endforeach
-        @else
-        <tr>
-            <th>No Locations Added</th>
-        </tr>
+        @else 
+            <tr>
+                <td>No Locations added yet</td>
+            </tr>
         @endif
     </table>
 </section>
@@ -81,7 +62,7 @@
     <i onClick="closeForm('newLocationForm')" class="fa-regular fa-circle-xmark"></i>
 
     <form action="{{ route('storeLocation') }}" method="post">
-        @include('includes.error')
+        @include('includes.error', ['form' => 'newLocation'])
 
         <input type="number" name="hospital_id" id="hospital_id" class="foreign_id" style="display:none;">
 
@@ -94,27 +75,12 @@
     </form>
 </div>
 
-<div class="hiddenForm" id="newBoardForm" style="display:none;">
-    <h2>Add New Board</h2>
-    <i onClick="closeForm('newBoardForm')" class="fa-regular fa-circle-xmark"></i>
-
-    <form action="{{ route('storeBoard') }}" method="post">
-        @include('includes.error')
-        <input type="text" name="location_id" id="location_id" class="foreign_id"  style="display:none;">
-
-        <label for="name">Board Name:</label>
-        <input type="text" name="name" id="name">
-
-        <input type="submit" value="Save">
-    </form>
-</div>
-
 <div class="hiddenForm" id="newTestForm" style="display:none;">
     <h2>Upload Test</h2>
     <i onClick="closeForm('newTestForm')" class="fa-regular fa-circle-xmark"></i>
 
     <form action="{{ route('storeTest') }}" method="post" enctype="multipart/form-data">
-        @include('includes.error')
+        @include('includes.error', ['form' => 'newTest'])
 
         <input type="text" name="board_id" id="board_id" class="foreign_id" style="display:none;">
         
@@ -137,5 +103,31 @@
         <input type="submit" value="Save">
     </form>
 </div>
+
+<div class="hiddenForm" id="search" style="display:none;">
+    <h2>Search Locations</h2>
+    <i onClick="closeForm('search')" class="fa-regular fa-circle-xmark"></i>
+
+    <input type="text" id="search" name="search">
+
+    <ul id="results"></ul>
+</div>
+
+<script>
+    $(document).on('keyup', '#search', function(){
+        var query = $(this).val();
+        $.ajax({
+            url:"{{ route('MainSearch') }}",
+            method:'GET',
+            data:{query:query},
+            dataType:'json',
+            success:function(data)
+            {
+                $('ul#results').html(data);
+            }
+        })
+    });
+</script>
+
 
 @endsection

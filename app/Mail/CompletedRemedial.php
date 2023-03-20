@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Remedial;
 
-class ApprovedRemedial extends Mailable
+class CompletedRemedial extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class ApprovedRemedial extends Mailable
     {
         return new Envelope(
             from: new Address('megaelectrical.testing@gmail.com', 'Mega Electrical Testing'),
-            subject: 'Approved Remedial',
+            subject: 'Completed Remedial',
         );
     }
 
@@ -43,7 +43,7 @@ class ApprovedRemedial extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.ApprovedRemedial',
+            view: 'emails.CompletedRemedial',
         );
     }
 }

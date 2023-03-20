@@ -4,7 +4,7 @@
 
 @section('content')
 
-@if($user->type_id === 1)
+@if($user->type_id === 1 OR $user->type_id === 4)
     <button class="createButton" onClick="openForm('newHospitalForm', '0')"><i class="fa-solid fa-plus"></i></button>
 @endif
 
@@ -53,7 +53,7 @@
     <i onClick="closeForm('newHospitalForm')" class="fa-regular fa-circle-xmark"></i>
 
     <form action="{{ route('storeHospital') }}" method="post">
-        @include('includes.error')
+        @include('includes.error', ['form' => 'newHospital'])
 
         <label for="name">Hospital Name:</label>
         <input type="text" name="name" id="name">

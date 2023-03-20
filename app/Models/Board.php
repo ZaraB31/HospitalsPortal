@@ -10,7 +10,7 @@ class Board extends Model
     use HasFactory;
 
     protected $fillable = [
-        'location_id', 'name',
+        'location_id', 'name', 'circuitLayout', 'file',
     ];
 
     public function location() {

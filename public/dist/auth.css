@@ -40,6 +40,15 @@ button a {
   color: white;
   text-decoration: none;
 }
+button a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+button:hover {
+  text-decoration: underline;
+  color: white;
+}
 
 section h1 {
   font-size: 2em;
@@ -92,6 +101,10 @@ th button {
 th button a {
   color: #1D70C0;
   text-decoration: none;
+}
+th button:hover {
+  color: #1D70C0;
+  text-decoration: underline;
 }
 
 tr {
@@ -163,6 +176,10 @@ button:hover, a:hover {
 .fa-solid.fa-arrow-left {
   margin: 0;
   margin-right: 3px;
+}
+
+.fa-regular.fa-pen-to-square:hover, .fa-regular.fa-trash-can:hover {
+  cursor: pointer;
 }
 
 main {

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('boards', function (Blueprint $table) {
+        Schema::create('drawings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->string('name');
-            $table->dateTime('circuitLayout');
             $table->string('file');
+            $table->string('version');
+            $table->foreignId('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boards');
+        Schema::dropIfExists('drawings');
     }
 };

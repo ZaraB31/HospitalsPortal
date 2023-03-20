@@ -3,15 +3,24 @@
 @section('title', 'Remedial Works')
 
 @section('content')
-<section>
+<section class="buttonsSection">
     <a href="/Hospitals"><i class="fa-solid fa-arrow-left"></i> Back</a>
+
+    <div>
+        @if($user->type_id === 4)
+            <button>Edit</button>
+            <button class="delete">Delete</button>
+        @elseif($user->type_id === 1)
+            <button onClick="">Edit</button>
+        @endif
+    </div>
 </section>
 
 <section>
     <h1>Remedial Works</h1>
 </section>
 
-@if($user->type_id === 1)
+@if($user->type_id === 1 OR $user->type_id === 4)
     <button class="createButton"><a href="/Hospitals/Board/Remedials/Create"><i class="fa-solid fa-plus"></i></a></button>
 @endif
 

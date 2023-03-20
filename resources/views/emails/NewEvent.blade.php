@@ -10,7 +10,7 @@
     <div>
         <h2>New Event</h2>
         <p>A new event has been added to the schedule.</p>
-        <a href="http://localhost:8000/Schedule/{{ $schedule->id }}">Review it now.</a>
+        <a href="https://megaelectrical-hospitalstesting.co.uk/Schedule/{{ $schedule->id }}">Review it now.</a>
     </div>
 </body>
 </html>

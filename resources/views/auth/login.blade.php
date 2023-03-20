@@ -7,7 +7,17 @@
 <img src="{{url('/images/auth-logo.png')}}" alt="">
 
 <form method="POST" action="{{ route('login') }}">
-    @include('includes.error')
+    @csrf
+
+    @if ($errors->any())
+        <div class="error" id="errorAlert" style="display:block;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <label for="email">Email Address</label>
     <input id="email" type="email" name="email" required autocomplete="email" autofocus>

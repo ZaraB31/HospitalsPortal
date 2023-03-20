@@ -10,7 +10,7 @@
     <div>
         <h2>New Test Result</h2>
         <p>A new test has been uploaded to the portal.</p>
-        <a href="http://localhost:8000/Hospitals/Boards/{{ $test->board_id }}">View Now</a>
+        <a href="https://megaelectrical-hospitalstesting.co.uk/Hospitals/Boards/{{ $test->board_id }}">View Now</a>
     </div>
 </body>
 </html>

@@ -14,6 +14,8 @@ use App\Mail\NewEvent;
 use App\Mail\ApprovedEvent;
 use App\Mail\CompletedEvent;
 
+use Validator;
+
 class ScheduleController extends Controller
 {
     public function __construct()
@@ -25,7 +27,12 @@ class ScheduleController extends Controller
         $user = Auth()->user();
         $userCompany = Company::find($user['company_id']);
         $userHospital = Hospital::where('name', $userCompany->company)->first();
-
+        if($user['type_id'] === 3) {
+            $userLocations = Location::where('hospital_id', $userHospital['id'])->get();
+        } else {
+            $userLocations = [];
+        }
+        
         $events = [];
 
         $appointments = Schedule::all();
@@ -35,7 +42,7 @@ class ScheduleController extends Controller
             $hospital = Hospital::find($location['hospital_id']);
             $today = Carbon::now();
             $id = strval($appointment['id']);
-            $url = 'http://localhost:8000/Schedule/'.$id;
+            $url = 'https://megaelectrical-hospitalstesting.co.uk/Schedule/'.$id;
 
             if($appointment['approved'] == 0 && $appointment['completed'] == 0) {
                 $colour = '#E48F1B';
@@ -50,7 +57,7 @@ class ScheduleController extends Controller
                 $colour = '#1FC01D';
             }
 
-            if($user->type_id === 1 or $user->type_id === 2) {
+            if($user->type_id === 1 OR $user->type_id === 4 or $user->type_id === 2) {
                 $events[] = [
                     'title' => $location['name'],
                     'start' => $appointment['start'],
@@ -79,7 +86,8 @@ class ScheduleController extends Controller
         return view('schedule', ['events' => $events,
                                  'user' => $user,
                                  'locations' => $locations,
-                                 'hospitals' => $hospitals]);
+                                 'hospitals' => $hospitals,
+                                 'userLocations' => $userLocations]);
     }
 
     public function show($id) {
@@ -96,7 +104,7 @@ class ScheduleController extends Controller
             $hospital = Hospital::find($location['hospital_id']);
             $today = Carbon::now();
             $appointmentID = strval($appointment['id']);
-            $url = 'http://localhost:8000/Schedule/'.$appointmentID;
+            $url = 'https://megaelectrical-hospitalstesting.co.uk/Schedule/'.$appointmentID;
 
             if($appointment['approved'] == 0 && $appointment['completed'] == 0) {
                 $colour = '#E48F1B';
@@ -111,7 +119,7 @@ class ScheduleController extends Controller
                 $colour = '#1FC01D';
             }
 
-            if($user->type_id === 1 or $user->type_id === 2) {
+            if($user->type_id === 1 OR $user->type_id === 4 or $user->type_id === 2) {
                 $events[] = [
                     'title' => $location['name'],
                     'start' => $appointment['start'],
@@ -149,13 +157,14 @@ class ScheduleController extends Controller
     }
 
     public function store(Request $request) {
-        $this->validate($request, [
+        Validator::make($request->all(), [
             'location_id' => ['required'],
             'start' => ['required', 'date', 'after_or_equal:today'],
             'end' => ['required', 'date', 'after_or_equal:start'],
             'hours' => ['required'],
-        ]);
+        ])->validateWithBag('newSchedule');
 
+        $user = Auth()->user();
         $endTime = date_create($request['end']);
         $end = date_modify($endTime, "+5 minutes");
 
@@ -170,7 +179,12 @@ class ScheduleController extends Controller
                                    'approved' => 0,
                                    'completed' => 0]);
 
-        Mail::to($hospital['email'])->send(new NewEvent($event));
+        if($user['type_id'] === 1) {
+            Mail::to($hospital['email'])->send(new NewEvent($event));
+        } elseif($user['type_id'] === 3) {
+            Mail::to('lance.roberts@mega-electrical.co.uk')->send(new NewEvent($event));
+            Mail::to('david.hughes@mega-electrical.co.uk')->send(new NewEvent($event));
+        }
 
         return redirect()->route('showSchedule');
     }
@@ -200,5 +214,63 @@ class ScheduleController extends Controller
         Mail::to($hospital['email'])->send(new CompletedEvent($event));
 
         return redirect()->route('showEvent', $id);
+    }
+
+    public function edit(Request $request) {
+        Validator::make($request->all(), [
+            'start' => ['required', 'date'],
+            'end' => ['required', 'date', 'after_or_equal:start'],
+            'hours' => ['required'],
+        ])->validateWithBag('editSchedule');
+
+        $endTime = date_create($request['end']);
+        $end = date_modify($endTime, "+5 minutes");
+
+        $event = Schedule::findOrFail($request['schedule_id']);
+        $event->start = $request['start'];
+        $event->end = $end;
+        $event->hours = $request['hours'];
+        $event->update();
+
+        return redirect()->route('showEvent', $request['schedule_id'])->with('success', 'Event Updated!');
+    }
+
+    public function delete($id) {
+        $event = Schedule::findOrFail($id);
+        $event->delete();
+
+        return redirect()->route('showSchedule')->with('delete', 'Event deleted');
+    }
+
+    public function notes(Request $request) {
+        Validator::make($request->all(), [
+            'notes' => ['required'],
+        ])->validateWithBag('newScheduleNote');
+
+        $schedule = Schedule::findOrFail($request['schedule_id']);
+        $schedule->notes = $request['notes'];
+        $schedule->update();
+
+        return redirect()->route('showEvent', $request['schedule_id']);
+    }
+
+    public function editNote(Request $request) {
+        Validator::make($request->all(), [
+            'notes' => ['required'],
+        ])->validateWithBag('editScheduleNote');
+
+        $event = Schedule::findOrFail($request['schedule_id']);
+        $event->notes = $request['notes'];
+        $event->update();
+
+        return redirect()->route('showEvent', $event['id'])->with('success', 'Event notes updated!');
+    }
+
+    public function deleteNote($id) {
+        $event = Schedule::findOrFail($id);
+        $event->notes = "";
+        $event->update();
+
+        return redirect()->route('showEvent', $event['id'])->with('delete', 'Event note deleted');
     }
 }

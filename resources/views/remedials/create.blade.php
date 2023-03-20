@@ -14,7 +14,7 @@
 
 <section>
     <form action="{{ route('storeRemedial') }}" class="createForm" method="post" enctype="multipart/form-data">
-        @include('includes.error')
+        @include('includes.error', ['form' => 'newRemedial'])
 
         <label for="hospital">Hospital:</label>
         <select name="hospital" id="hospital" class="hospital">

@@ -40,6 +40,15 @@ button a {
   color: white;
   text-decoration: none;
 }
+button a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+button:hover {
+  text-decoration: underline;
+  color: white;
+}
 
 section h1 {
   font-size: 2em;
@@ -92,6 +101,10 @@ th button {
 th button a {
   color: #1D70C0;
   text-decoration: none;
+}
+th button:hover {
+  color: #1D70C0;
+  text-decoration: underline;
 }
 
 tr {
@@ -163,6 +176,10 @@ button:hover, a:hover {
 .fa-solid.fa-arrow-left {
   margin: 0;
   margin-right: 3px;
+}
+
+.fa-regular.fa-pen-to-square:hover, .fa-regular.fa-trash-can:hover {
+  cursor: pointer;
 }
 
 .fc-today-button.fc-button.fc-button-primary {
@@ -323,6 +340,16 @@ main .hiddenForm form textarea {
   width: 100%;
   height: 150px;
 }
+main .hiddenForm form .delete {
+  background-color: #C01D1F;
+  width: 70%;
+  margin-left: 15%;
+}
+main .hiddenForm #search {
+  width: 100%;
+  border-radius: 4px;
+  border: 2px solid grey;
+}
 main .splitSection {
   display: flex;
   flex-wrap: wrap;
@@ -330,6 +357,14 @@ main .splitSection {
 }
 main .splitSection .halfSection {
   width: 48%;
+}
+main .splitSection .halfSection table .delete {
+  background-color: #C01D1F;
+  width: 100%;
+  margin: 0;
+}
+main .splitSection .halfSection table td img {
+  width: 100%;
 }
 main .splitSection aside {
   background-color: #1D70C0;
@@ -375,16 +410,20 @@ main #remedialDetails article {
 }
 main #remedialDetails aside {
   width: 25%;
+}
+main #remedialDetails aside div {
   background-color: #1D70C0;
   height: -moz-max-content;
   height: max-content;
   padding: 1%;
   color: white;
   text-align: center;
+  margin-bottom: 20px;
 }
-main #remedialDetails aside button {
+main #remedialDetails aside div button {
   width: 80%;
   background-color: #ACB2BA;
+  margin-bottom: 20px;
 }
 main .remedialImages {
   display: flex;
@@ -431,6 +470,9 @@ main .eventShow {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+main .eventShow section {
+  margin: 0;
+}
 main .eventShow .eventDetails, main .eventShow .eventNotes {
   display: flex;
   justify-content: space-between;
@@ -440,6 +482,7 @@ main .eventShow .eventDetails, main .eventShow .eventNotes {
   height: max-content;
   padding: 2%;
   width: 270px;
+  margin-bottom: 20px;
 }
 main .eventShow .eventDetails p, main .eventShow .eventNotes p {
   width: 100%;
@@ -485,6 +528,17 @@ main .indexButtons {
 }
 main .indexButtons button {
   padding: 12px;
+}
+main .buttonsSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main .buttonsSection button {
+  color: white;
+}
+main .buttonsSection .delete {
+  background-color: #C01D1F;
 }
 
 @media only screen and (max-width: 600px) {

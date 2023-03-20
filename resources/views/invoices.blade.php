@@ -3,7 +3,7 @@
 @section('title', 'Invoices')
 
 @section('content')
-@if($user->type_id === 1)
+@if($user->type_id === 1 OR $user->type_id === 4)
 
 <section>
     <a href="/Hospitals/Admin"><i class="fa-solid fa-arrow-left"></i> Back</a>
@@ -36,7 +36,7 @@
     <i onClick="closeForm('newInvoiceForm')" class="fa-regular fa-circle-xmark"></i>
 
     <form action="{{ route('storeInvoice') }}" method="post" enctype="multipart/form-data">
-        @include('includes.error')
+        @include('includes.error', ['form' => 'newInvoice'])
 
         <label for="invoiceNo">Invoice Number:</label>
         <input type="text" name="invoiceNo" id="invoiceNo">
@@ -56,7 +56,7 @@
     <i onClick="closeForm('newPaidInvoiceForm')" class="fa-regular fa-circle-xmark"></i>
 
     <form action="{{ route('paidInvoice') }}" method="post" enctype="multipart/form-data">
-        @include('includes.error')
+        @csrf
 
         <input type="text" name="invoice_id" id="invoice_id" class="foreign_id" style="display:none;">
 

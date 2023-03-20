@@ -14,9 +14,13 @@ use App\Models\Price;
 use App\Models\User;
 use App\Models\Company;
 use Auth;
+use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewRemedial;
 use App\Mail\ApprovedRemedial;
+use App\Mail\CompletedRemedial;
+
+use Validator;
 
 class RemedialController extends Controller
 {
@@ -30,7 +34,7 @@ class RemedialController extends Controller
         $allRemedials = Remedial::all();
         $remedials = [];
 
-        if($user->type_id === 1 OR $user->type_id === 2) {
+        if($user->type_id === 1 OR $user->type_id === 4 OR $user->type_id === 2) {
             $remedials = Remedial::all()->sortByDesc('created_at');
         } else if ($user->type_id === 3) {
             $userCompany = Company::find($user['company_id']);
@@ -62,12 +66,12 @@ class RemedialController extends Controller
     }
     
     public function store(Request $request) {
-        $this->validate($request, [
+        Validator::make($request->all(), [
             'circuitNo' => ['required'],
             'room' => ['required'],
             'description' => ['required'],
             'estimatedCompletion' => ['required', 'date']
-        ]);
+        ])->validateWithBag('newRemedial');
 
         $userID = Auth()->user()->id;
 
@@ -81,7 +85,8 @@ class RemedialController extends Controller
                                       'room' => $request['room'],
                                       'description' => $request['description'],
                                       'estimatedCompletion' => $request['estimatedCompletion'],
-                                      'approved' => '0']); 
+                                      'approved' => '0',
+                                      'completed' => '0']); 
 
         foreach ($request->get('defect') as $defect) {
             $prices = RemedialPrice::create(['remedial_id' => $remedial['id'],
@@ -98,6 +103,7 @@ class RemedialController extends Controller
         }
 
         Mail::to($hospital['email'])->send(new NewRemedial($remedial));
+        Mail::to('accounts@mega-electrical.co.uk')->send(new NewRemedial($remedial));
 
         return redirect()->route('displayRemedial');
     }
@@ -136,5 +142,61 @@ class RemedialController extends Controller
         Mail::to($user['email'])->send(new ApprovedRemedial($remedial));
 
         return redirect()->route('showRemedial', $id);
+    }
+
+    public function complete(Request $request) {
+        $id = $request['remedial_id'];
+        $remedial = Remedial::findOrFail($id);
+        $remedial->completed = "1";
+        $remedial->update();
+
+        $hospital = $remedial->board->location->hospital->email;
+
+        $user = User::find($remedial['user_id']);
+        Mail::to($hospital)->send(new CompletedRemedial($remedial));
+
+        return redirect()->route('showRemedial', $id);
+    }
+
+    public function edit(Request $request) {
+        Validator::make($request->all(), [
+            'circuitNo' => ['required'],
+            'room' => ['required'],
+            'description' => ['required'],
+            'estimatedCompletion' => ['required', 'date']
+        ])->validateWithBag('editRemedial');
+
+        $remedial = Remedial::findOrFail($request['remedial_id']);
+
+        $remedial->circuitNo = $request['circuitNo'];
+        $remedial->room = $request['room'];
+        $remedial->description = $request['description'];
+        $remedial->estimatedCompletion = $request['estimatedCompletion'];
+        $remedial->update();
+
+        return redirect()->route('showRemedial', $request['remedial_id']);
+    }
+
+    public function delete($id) {
+        $remedial = Remedial::findOrfail($id);
+        $photos = RemedialPhoto::where('remedial_id', $id)->get();
+        $prices = RemedialPrice::where('remedial_id', $id)->get();
+
+        if($photos != '') {
+            foreach($photos as $photo) {
+                $deletedFile = File::delete(public_path().'/remedialPhotos/'.$photo['file']);
+                $photo->delete();
+            }
+        }
+
+        if($prices != '') {
+            foreach($prices as $price) {
+                $price->delete();
+            }
+        }
+
+        $remedial->delete();
+
+        return redirect()->route('displayRemedial', $id);
     }
 }
