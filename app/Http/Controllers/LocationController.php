@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Board;
 use App\Models\Drawing;
 use App\Models\Hospital;
+use App\Models\Company;
 
 use Validator;
 
@@ -104,5 +105,36 @@ class LocationController extends Controller
         } else if ($type === 'community') {
             return redirect()->route('viewHospitalCommunity', $hospital['id'])->with('delete', 'Location Deleted!');
         }
+    }
+
+    public function searchPage() {
+        return view('search');
+    }
+
+    public function search(Request $request) {
+        $user = Auth()->user();
+        $locationsArray = [];
+
+        if($request->keyword != '') {
+            $locations = location::where('name', 'LIKE', '%'.$request->keyword.'%')->get();
+
+            foreach($locations as $location) {
+                array_push($locationsArray, ['locationID' => $location['id'], 'name' => $location['name'], 'hospital_id' => $location['hospital_id'], 'hospital' => $location->hospital['name']]);
+            }
+
+            if($user->type_id === 3) {
+                $userCompany = Company::where('id', $user->company_id)->first();
+                $userHospital = Hospital::where('name', $userCompany->company)->first();
+                for($i = 0; $i < count($locationsArray); $i++) {
+                    if($locationsArray[$i]['hospital_id'] != $userHospital->id) {
+                    array_splice($locationsArray, $i, 1);
+                    }
+                }
+            } 
+        } 
+
+        return response()->json([
+            'locations' => $locationsArray
+        ]);
     }
 }

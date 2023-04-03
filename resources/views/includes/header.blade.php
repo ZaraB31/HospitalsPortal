@@ -7,5 +7,6 @@
             @csrf
             <button type="submit">Logout</button>
         </form></li>
+        <li><a href="/Search"><i class="fa-solid fa-magnifying-glass"></i></a></li>
     </ul>
 </nav>

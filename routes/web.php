@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/Search', [App\Http\Controllers\LocationController::class, 'searchPage'])->name('searchLocationsPage');
+Route::post('/Search', [App\Http\Controllers\LocationController::class, 'search'])->name('searchLocations');
+
 Route::get('/Hospitals', [App\Http\Controllers\HospitalController::class, 'index'])->name('displayHospitals');
 Route::post('/Hospitals/Create', [App\Http\Controllers\HospitalController::class, 'store'])->name('storeHospital');
 Route::get('/Hospitals/{id}/Main', [App\Http\Controllers\HospitalController::class, 'main'])->name('viewHospitalMain');
