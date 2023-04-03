@@ -42,12 +42,12 @@ class BoardController extends Controller
         $user = Auth()->user();
         $downloads = [];
 
-        if($test === '') {
-            $downloads === '';
+        if($test) {
+            $downloads = Download::where('test_id', $test['id'])->get();
         } else {
-            $downloads = Download::where('test_id', $test['id'])->get(); 
+            $downloads === '';
         }
-        
+
         if($downloads === '') {
             return view('hospitals/board', ['board' => $board,
                                         'oldTests' => $oldTests,

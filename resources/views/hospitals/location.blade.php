@@ -70,6 +70,25 @@
             <tr><td colspan="2">No Boards added yet</td></tr>
             @endif
         </table>
+
+        <table>
+            <tr>
+                <th colspan="2">Scheduled Visits</th>
+            </tr>
+            @if($events->count() === 0)
+            <tr>
+                <td colspan="2">No visits currently scheduled</td>
+                <td colspan="2"><a href="/Schedule">View the schedule to arrange a visit</a></td>
+            </tr>
+            @else
+            @foreach($events as $event) 
+            <tr>
+                <td>{{date('j F Y', strtotime($event->start))}} - {{date('j F Y', strtotime($event->end))}}</td>
+                <td>{{$event->hours}}</td>
+            </tr>
+            @endforeach
+            @endif
+        </table>
     </article>
 
     <article class="halfSection">
@@ -126,32 +145,58 @@
     </article>
 </section>
 @else 
-<section>
-    <table>
-        <tr>
-            <th>Boards</th>
-            <th style="text-align:right;"><button onClick="openForm('newBoardForm', {{$location->id}})">Add New</button></th>
-        </tr>
-        @foreach($boards as $board)
-        <tr>
-            <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}}  <i class="fa-solid fa-arrow-right"></i></a></td>
-            @if($board->test === null)
-                <td>
-                    No Test Uploaded
-                    @if($user->type_id === 1 OR $user->type_id === 4 OR $user->type_id === 2)
-                        <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
+<section class="splitSection">
+    <article class="halfSection">
+        <table>
+            <tr>
+                <th>Boards</th>
+                <th style="text-align:right;"><button onClick="openForm('newBoardForm', {{$location->id}})">Add New</button></th>
+            </tr>
+            @foreach($boards as $board)
+            <tr>
+                <td><a href="/Hospitals/Boards/{{$board->id}}">{{$board->name}}  <i class="fa-solid fa-arrow-right"></i></a></td>
+                @if($board->test === null)
+                    <td>
+                        No Test Uploaded
+                        @if($user->type_id === 1 OR $user->type_id === 4 OR $user->type_id === 2)
+                            <button onClick="openForm('newTestForm', '{{$board->id}}')">Upload Test</button>
+                        @endif
+                    </td>
+                @else
+                    @if($board->test->result === "Satisfactory")
+                        <td colspan="2" style="background-color: #1FC01D;">{{$board->test->result}}</td>
+                    @elseif($board->test->result === "Unsatisfactory")
+                        <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
                     @endif
-                </td>
-            @else
-                @if($board->test->result === "Satisfactory")
-                    <td colspan="2" style="background-color: #1FC01D;">{{$board->test->result}}</td>
-                @elseif($board->test->result === "Unsatisfactory")
-                    <td style="background-color: #C01D1F; color:white;">{{$board->test->result}}</td>
                 @endif
+            </tr>
+            @endforeach
+        </table>
+    </article>
+
+    <article class="halfSection">
+        <table>
+            <tr>
+                <th colspan="2">Scheduled Visits</th>
+            </tr>
+            @if($events->count() === 0)
+            <tr>
+                <td colspan="2">No visits currently scheduled</td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="/Schedule">View the schedule to arrange a visit <i class="fa-solid fa-arrow-right"></i></a></td>
+            </tr>
+            
+            @else
+            @foreach($events as $event) 
+            <tr>
+                <td>{{date('j F Y', strtotime($event->start))}} - {{date('j F Y', strtotime($event->end))}}</td>
+                <td>{{$event->hours}}</td>
+            </tr>
+            @endforeach
             @endif
-        </tr>
-        @endforeach
-    </table>
+        </table>
+    </article>
 </section>
 @endif
 

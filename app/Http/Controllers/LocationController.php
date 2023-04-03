@@ -8,6 +8,7 @@ use App\Models\Board;
 use App\Models\Drawing;
 use App\Models\Hospital;
 use App\Models\Company;
+use App\Models\Schedule;
 
 use Validator;
 
@@ -43,11 +44,13 @@ class LocationController extends Controller
         $location = Location::findOrFail($id);
         $boards = Board::where('location_id', $id)->get();
         $drawings = Drawing::where('location_id', $id)->get();
+        $events = Schedule::where('location_id', $id)->get();
 
         return view('hospitals/location', ['location' => $location,
                                            'boards' => $boards,
                                            'user' => $user,
-                                           'drawings' => $drawings]);
+                                           'drawings' => $drawings,
+                                           'events' => $events]);
     }
 
     public function edit(Request $request) {
