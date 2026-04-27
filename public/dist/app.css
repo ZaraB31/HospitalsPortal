@@ -220,6 +220,19 @@ div.fc-daygrid-day-top {
 
 header {
   background-color: #1D70C0;
+  position: sticky;
+  top: -60px;
+  z-index: 5;
+}
+header div {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-left: 10%;
+  height: 60px;
+}
+header div img {
+  height: 100%;
 }
 header nav {
   width: 70%;
@@ -229,7 +242,7 @@ header nav {
 }
 header nav ul {
   display: inline-flex;
-  width: 70%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
@@ -239,6 +252,9 @@ header nav ul li {
 }
 header nav ul li a {
   color: white;
+}
+header nav ul li a i {
+  margin-right: 10px;
 }
 header nav ul li form button {
   color: white;
